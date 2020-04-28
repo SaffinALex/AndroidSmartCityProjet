@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">SmartCity</string>
+
+    <string name="accueil">Accueil</string>
+
+    <string name="identififier">S\'identifier</string>
+
+    <string name="creerCompte">Créer un compte</string>
+
+    <string name="connexion">Connexion</string>
+
+    <string name="mail">Adresse Mail</string>
+    <string name="Profil">Profil</string>
+
+    <string name="motDePasse">Mot de Passe</string>
+
+    <string name="oubliPass">Mot de Passe oublié ?</string>
+
+    <string name="seConnecter">Se Connecter</string>
+
+    <string name="valider">Valider</string>
+
+    <string name="nom">Nom</string>
+
+    <string name="prenom">Prénom</string>
+
+    <string name="home">Home</string>
+
+    <string name="ad">Publicité</string>
+
+    <string name="reseaux">Réseaux</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+</resources>
