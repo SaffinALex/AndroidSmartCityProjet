@@ -1,5 +1,6 @@
 package com.example.saffin.androidsmartcity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -11,6 +12,8 @@ import android.support.v7.widget.Toolbar;
 import android.support.v4.view.GravityCompat;
 
 import android.os.Bundle;
+
+import com.example.saffin.androidsmartcity.auth.Profil;
 
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
@@ -49,6 +52,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.activity_main_drawer_news :
                 break;
             case R.id.activity_main_drawer_profile:
+                Intent intent = new Intent(this, Profil.class);
+                startActivity(intent);
                 break;
             case R.id.activity_main_drawer_settings:
                 break;

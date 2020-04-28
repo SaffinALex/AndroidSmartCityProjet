@@ -33,6 +33,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/nom"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"/>
@@ -51,6 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:id="@+id/prenom"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"/>
 
@@ -65,6 +67,7 @@
 
         <EditText
             android:layout_width="match_parent"
+            android:id="@+id/email"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -84,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:id="@+id/password"
             android:layout_marginBottom="30dp"/>
 
         <Button
@@ -92,7 +96,7 @@
             android:layout_gravity="center_horizontal"
             android:text="@string/valider"
             android:textSize="20sp"
-            android:onClick="CreateAccount"
+            android:onClick="onCreateAccount"
             android:layout_marginBottom="50dp"/>
 
 

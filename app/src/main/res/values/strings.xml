@@ -1,4 +1,22 @@
 <resources>
+    <string name="no_email">Undefined Email</string>
+
+    <string name="no_username">Undefined Username</string>
+
+    <string name="delete_message_account">Voulez-vous supprimer défintivement ce compte ? </string>
+
+    <string name="choice_no">Non</string>
+
+    <string name="choice_yes">Oui</string>
+
+    <string name="needMail">Adresse mail manquante</string>
+
+    <string name="needPass">Mot de Passe manquanr</string>
+
+    <string name="emptyField">Champs manquants</string>
+
+    <string name="badUser">Utilisateur introuvable</string>
+
     <string name="app_name">SmartCity</string>
 
     <string name="accueil">Accueil</string>
@@ -31,4 +49,8 @@
     <string name="reseaux">Réseaux</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -16,13 +16,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profil"></activity>
-        <activity android:name=".AccountCreation"></activity>
-        <activity android:name=".Advertisement"></activity>
-        <activity android:name=".Connexion"></activity>
-        <activity android:name=".Home"></activity>
-        <activity android:name=".ReceptionScreen"></activity>
-        <activity android:name=".Social"></activity>
+        <activity android:name=".auth.Profil" />
+        <activity android:name=".AccountCreation" />
+        <activity android:name=".Advertisement" />
+        <activity android:name=".Connexion" />
+        <activity android:name=".Home" />
+        <activity android:name=".ReceptionScreen" />
+        <activity android:name=".Social" />
+        <activity
+            android:name=".auth.BaseActivity"
+            android:label="@string/title_activity_base"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>
