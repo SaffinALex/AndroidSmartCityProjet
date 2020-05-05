@@ -18,19 +18,20 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Home home;
+    private Home instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
         this.configureToolBar();
 
         this.configureDrawerLayout();
 
         this.configureNavigationView();
 
-        this.home = this;
+        this.instance = this;
 
     }
     @Override
@@ -42,8 +43,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             super.onBackPressed();
         }
     }
-
-
 
 
     @Override
@@ -99,6 +98,6 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void goShop(View view) {
-        startActivity(new Intent(home, MapsActivity.class));
+        startActivity(new Intent(instance, MapsActivity.class));
     }
 }

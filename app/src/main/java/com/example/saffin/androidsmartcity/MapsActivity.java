@@ -1,24 +1,72 @@
 package com.example.saffin.androidsmartcity;
 
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.system.Os;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.widget.Toast;
 
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.net.PlacesClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+import java.io.Console;
+import java.security.Provider;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
+        GoogleMap.OnMyLocationClickListener {
 
     private GoogleMap mMap;
+    private MapsActivity instance;
+
+    DatabaseReference database_root, database_locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.instance = this;
         setContentView(R.layout.activity_maps);
+
+
+        /** Places API **/
+        // Initialize the SDK
+        Places.initialize(getApplicationContext(), "AIzaSyBMsEY0ZSZu5-CI_R-cuMaM8vXx5mKeLHQ"); // TODO : Secure the API KEY !!
+
+        // Create a new Places client instance
+        PlacesClient placesClient = Places.createClient(this);
+
+        /** Firebase Database **/
+        database_root = FirebaseDatabase.getInstance().getReference();
+        database_locations = database_root.child("locations");
+
+
+        /** Launches the map **/
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -38,10 +86,86 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.clear();
+        /** Asking For Permission **/
+        int hasLocationPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+        List<String> permissions = new ArrayList<String>();
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        while(hasLocationPermission != PackageManager.PERMISSION_GRANTED){
+            hasLocationPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
+            permissions.clear();
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            if (!permissions.isEmpty()) {
+                requestPermissions(permissions.toArray(new String[permissions.size()]), 0);
+            }
+
+            onRequestPermissionsResult(0, permissions.toArray(new String[permissions.size()]), new int[permissions.size()]);
+        }
+
+        /** ***************
+         * From here it's the Actual Map manipulation
+         * **************** **/
+
+        /** Adds the "MyLocation" button **/
+        mMap.setMyLocationEnabled(true);
+        mMap.setOnMyLocationButtonClickListener(this);
+        mMap.setOnMyLocationClickListener(this);
+
+        /** Gets the current position **/
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        if(location != null){
+            LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,12));
+        }
+        else{
+            /** Moves the camera on Sydney **/
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-34, 151)));
+        }
+
+
+        /** Allows to add Markers **/
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                Marker mark = mMap.addMarker(new MarkerOptions().position(latLng));
+                database_locations.setValue(latLng);
+            }
+        });
+
+
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(Marker marker) {
+                // Retrieve the data from the marker.
+                Integer clickCount = (Integer) marker.getTag();
+
+                // Check if a click count was set, then display the click count.
+                if (clickCount != null) {
+                    clickCount = clickCount + 1;
+                    marker.setTag(clickCount);
+                    System.err.println("\n" + marker.getTitle() + " has been clicked " + clickCount + " times.");
+                }
+
+                // Return false to indicate that we have not consumed the event and that we wish
+                // for the default behavior to occur (which is for the camera to move such that the
+                // marker is centered and for the marker's info window to open, if it has one).
+                return false;
+            }
+        });
+    }
+
+
+
+
+    @Override
+    public boolean onMyLocationButtonClick() {
+        System.err.println("My Location Button Clicked");
+        return false;
+    }
+
+    @Override
+    public void onMyLocationClick(@NonNull Location location) {
+        System.err.println("Current location:\n" + location);
     }
 }
