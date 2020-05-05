@@ -1,17 +1,16 @@
 package com.example.saffin.androidsmartcity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.design.widget.NavigationView;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
+import com.google.android.material.navigation.NavigationView;
 import android.view.MenuItem;
+import android.view.View;
 
-import android.support.v7.widget.Toolbar;
-import android.support.v4.view.GravityCompat;
-
-import android.os.Bundle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 
 import com.example.saffin.androidsmartcity.auth.Profil;
 
@@ -19,6 +18,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private Home home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +30,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         this.configureNavigationView();
 
+        this.home = this;
+
     }
     @Override
     public void onBackPressed() {
@@ -40,6 +42,8 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             super.onBackPressed();
         }
     }
+
+
 
 
     @Override
@@ -88,5 +92,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private void configureNavigationView(){
         this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    public void goNews(View view) {
+
+    }
+
+    public void goShop(View view) {
+        startActivity(new Intent(home, MapsActivity.class));
     }
 }

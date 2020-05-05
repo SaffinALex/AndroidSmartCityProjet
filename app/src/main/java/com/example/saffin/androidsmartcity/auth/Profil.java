@@ -2,17 +2,15 @@ package com.example.saffin.androidsmartcity.auth;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.saffin.androidsmartcity.Home;
 import com.example.saffin.androidsmartcity.MainActivity;
 import com.example.saffin.androidsmartcity.R;
 import com.firebase.ui.auth.AuthUI;
