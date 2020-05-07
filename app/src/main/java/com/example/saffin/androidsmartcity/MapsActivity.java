@@ -129,6 +129,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onMapLongClick(LatLng latLng) {
                 Marker mark = mMap.addMarker(new MarkerOptions().position(latLng));
+                mark.setSnippet(latLng.toString());
                 database_locations.setValue(latLng);
             }
         });
@@ -137,6 +138,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
             public boolean onMarkerClick(Marker marker) {
+
+                LatLng latLng = marker.getPosition();
+
+                marker.getSnippet();
+
+                String FindPlaceRequest = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?";
+                String input = "input=commerce&inputtype=textquery";
+                String fields = "&fields=business_status,photos,formatted_address,geometry,name,icon,permanently_closed,place_id,plus_code,types&";
+                String location = "locationbias=circle:20000@" + latLng.latitude + "," + latLng.longitude;
+                String key = "&key=AIzaSyBMsEY0ZSZu5-CI_R-cuMaM8vXx5mKeLHQ";
+                FindPlaceRequest += input + fields + location + key; // The order matters
+
+                String NearbySearchRequest= "https://maps.googleapis.com/maps/api/place/nearbysearch/json?";
+                location = "-33.8670522,151.1957362&radius=1500";
+                String keyword = "&type=restaurant&keyword=cruise";
+                key = "&key=AIzaSyBMsEY0ZSZu5-CI_R-cuMaM8vXx5mKeLHQ";
+
+                NearbySearchRequest += location + keyword + key; // The order matters
+
                 // Retrieve the data from the marker.
                 Integer clickCount = (Integer) marker.getTag();
 
@@ -145,6 +165,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     clickCount = clickCount + 1;
                     marker.setTag(clickCount);
                     System.err.println("\n" + marker.getTitle() + " has been clicked " + clickCount + " times.");
+                }
+                else{
+                    System.err.println("\n\tThis marker had no tag attached\n");
                 }
 
                 // Return false to indicate that we have not consumed the event and that we wish
