@@ -52,13 +52,27 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         int id = item.getItemId();
 
         switch (id){
+            case R.id.activity_main_drawer_home :
+                //startActivity(new Intent(this, Home.class));
+                break;
             case R.id.activity_main_drawer_news :
+                startActivity(new Intent(this, News.class));
+                break;
+            case R.id.activity_main_drawer_shops :
+                startActivity(new Intent(this, Shop.class));
+                break;
+            case R.id.activity_main_drawer_social :
+                startActivity(new Intent(this, Social.class));
+                break;
+            case R.id.activity_main_drawer_ads :
+                startActivity(new Intent(this, Advertisement.class));
                 break;
             case R.id.activity_main_drawer_profile:
                 Intent intent = new Intent(this, Profil.class);
                 startActivity(intent);
                 break;
             case R.id.activity_main_drawer_settings:
+                startActivity(new Intent(this, Settings.class));
                 break;
             default:
                 break;
@@ -82,6 +96,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     // 2 - Configure Drawer Layout
     private void configureDrawerLayout(){
         this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
+
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
@@ -98,6 +113,14 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     }
 
     public void goShop(View view) {
+
         startActivity(new Intent(instance, MapsActivity.class));
+    }
+
+    public void goGroups(View view) {
+
+    }
+
+    public void goAd(View view) {
     }
 }

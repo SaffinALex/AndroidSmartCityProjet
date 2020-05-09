@@ -1,36 +1,39 @@
 package com.example.saffin.androidsmartcity;
 
-import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.drawerlayout.widget.DrawerLayout;
+import android.view.MenuItem;
 
 import com.example.saffin.androidsmartcity.auth.Profil;
 import com.google.android.material.navigation.NavigationView;
-import androidx.appcompat.widget.Toolbar;
-import android.view.MenuItem;
 
-public class Social extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Settings extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private Settings instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_social);
-        // 6 - Configure all views
+        setContentView(R.layout.activity_settings);
 
         this.configureToolBar();
 
         this.configureDrawerLayout();
 
         this.configureNavigationView();
-    }
 
+        this.instance = this;
+
+    }
     @Override
     public void onBackPressed() {
         // 5 - Handle back click to close menu
@@ -59,7 +62,7 @@ public class Social extends AppCompatActivity implements NavigationView.OnNaviga
                 startActivity(new Intent(this, Shop.class));
                 break;
             case R.id.activity_main_drawer_social :
-                //startActivity(new Intent(this, Social.class));
+                startActivity(new Intent(this, Social.class));
                 break;
             case R.id.activity_main_drawer_ads :
                 startActivity(new Intent(this, Advertisement.class));
@@ -69,7 +72,7 @@ public class Social extends AppCompatActivity implements NavigationView.OnNaviga
                 startActivity(intent);
                 break;
             case R.id.activity_main_drawer_settings:
-                startActivity(new Intent(this, Settings.class));
+                //startActivity(new Intent(this, Settings.class));
                 break;
             default:
                 break;

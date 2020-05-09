@@ -2,9 +2,13 @@ package com.example.saffin.androidsmartcity;
 
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.saffin.androidsmartcity.auth.Profil;
 import com.google.android.material.navigation.NavigationView;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
@@ -42,11 +46,27 @@ public class Advertisement extends AppCompatActivity implements NavigationView.O
         int id = item.getItemId();
 
         switch (id){
+            case R.id.activity_main_drawer_home :
+                startActivity(new Intent(this, Home.class));
+                break;
             case R.id.activity_main_drawer_news :
+                startActivity(new Intent(this, News.class));
+                break;
+            case R.id.activity_main_drawer_shops :
+                startActivity(new Intent(this, Shop.class));
+                break;
+            case R.id.activity_main_drawer_social :
+                startActivity(new Intent(this, Social.class));
+                break;
+            case R.id.activity_main_drawer_ads :
+                //startActivity(new Intent(this, Advertisement.class));
                 break;
             case R.id.activity_main_drawer_profile:
+                Intent intent = new Intent(this, Profil.class);
+                startActivity(intent);
                 break;
             case R.id.activity_main_drawer_settings:
+                startActivity(new Intent(this, Settings.class));
                 break;
             default:
                 break;

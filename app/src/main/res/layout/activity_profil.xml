@@ -18,22 +18,27 @@
         android:textSize="30sp"
         android:textStyle="bold" />
 
-    <Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:theme="@style/ToolBarStyle">
+        <!--android:id="@+id/toolbar3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/holo_blue_dark">
+        android:background="@android:color/holo_blue_dark">-->
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/Profil"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
-    </Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ImageView
         android:id="@+id/imageView2"
@@ -87,8 +92,9 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="18dp"
         android:layout_marginBottom="17dp"
         android:onClick="onClickSignOutButton"
         android:text="DECONNECTER" />
