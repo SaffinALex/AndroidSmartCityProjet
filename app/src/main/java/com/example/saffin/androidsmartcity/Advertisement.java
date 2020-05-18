@@ -65,7 +65,7 @@ public class Advertisement extends AppCompatActivity implements NavigationView.O
         progressDialog = ProgressDialog.show(instance, "", "Buffering video...", true);
 
         /***
-         * Cheks all the videos stored and randomly chooses one to display
+         * Cheks all the videos stored and randomly chooses one to play
          */
         videosRef.listAll().addOnSuccessListener(new OnSuccessListener<ListResult>() {
             @Override

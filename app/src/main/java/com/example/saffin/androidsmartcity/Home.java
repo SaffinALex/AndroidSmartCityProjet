@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.TextView;
 
@@ -52,6 +53,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
     private Home instance;
     private CalendarView cv;
     private TextView eventDate;
+    private Button addEventBtn;
 
     FirebaseFirestore database;
 
@@ -72,6 +74,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
 
         cv = (CalendarView) findViewById(R.id.calendarView);
         eventDate = (TextView) findViewById(R.id.displayEventDate);
+        addEventBtn = (Button) findViewById(R.id.addEventBtn);
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String selectedDate = sdf.format(new Date(cv.getDate()));
@@ -91,6 +94,13 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
             }
         });
         cv.getDate();
+
+        addEventBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     private LatLng retrieveLocation(String ville){
@@ -115,6 +125,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         });
         return location[0];
     }
+
 
     private Date integerToDate(int dayOfMonth, int month, int year, int hour, int minute){
 

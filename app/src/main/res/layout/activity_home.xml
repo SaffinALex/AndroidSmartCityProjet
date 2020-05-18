@@ -38,7 +38,7 @@
 
         </CalendarView>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_marginTop="25dp"
             android:layout_width="350dp"
             android:background="@drawable/bg_agenda"
@@ -54,6 +54,8 @@
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
                 android:layout_marginRight="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
                 ></TextView>
 
             <TextView
@@ -61,10 +63,23 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/displayEvent"
                 android:textColor="@android:color/black"
+                android:layout_toRightOf="@id/displayEventDate"
                 android:text="Aucun Evenement"
                 ></TextView>
 
-        </LinearLayout>
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/addEventBtn"
+                android:layout_toLeftOf="@id/displayEvent"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:padding="5dp"
+                android:background="@drawable/ic_add_event_hdpi"
+                android:textColor="@color/quantum_white_100"
+                ></Button>
+
+        </RelativeLayout>
 
 
 
