@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.saffin.androidsmartcity">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".GroupTchat"></activity>
+        <activity android:name=".MyGroup" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".auth.Profil" />
+        <activity android:name=".AccountCreation" />
+        <activity android:name=".Advertisement" />
+        <activity android:name=".Connexion" />
+        <activity android:name=".Home" />
+        <activity android:name=".ReceptionScreen" />
+        <activity android:name=".Social" />
+        <activity android:name=".SocialGroup" />
+        <activity
+            android:name=".auth.BaseActivity"
+            android:label="@string/title_activity_base"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".GroupCreate" />
+        <activity android:name=".ProfilEdit" />
+    </application>
+
+</manifest>

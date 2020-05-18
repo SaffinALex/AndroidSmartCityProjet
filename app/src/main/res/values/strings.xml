@@ -1,0 +1,63 @@
+<resources>
+    <string name="no_email">Undefined</string>
+
+    <string name="no_username">Undefined</string>
+
+    <string name="delete_message_account">Voulez-vous supprimer défintivement ce compte ? </string>
+
+    <string name="choice_no">Non</string>
+
+    <string name="choice_yes">Oui</string>
+
+    <string name="error_unknown_error">Une erreur a eu lieu</string>
+
+    <string name="needMail">Adresse mail manquante</string>
+
+    <string name="needPass">Mot de Passe manquanr</string>
+
+    <string name="emptyField">Champs manquants</string>
+
+    <string name="sendMailPassword">Un mail a été envoyé a l\'adresse renseigné si un compte existe.</string>
+
+    <string name="badUser">Utilisateur introuvable</string>
+
+    <string name="app_name">SmartCity</string>
+
+    <string name="accueil">Accueil</string>
+
+    <string name="identififier">S\'identifier</string>
+
+    <string name="creerCompte">Créer un compte</string>
+
+    <string name="connexion">Connexion</string>
+
+    <string name="mail">Adresse Mail</string>
+
+    <string name="Profil">Profil</string>
+
+    <string name="motDePasse">Mot de Passe</string>
+
+    <string name="oubliPass">Mot de Passe oublié ?</string>
+
+    <string name="seConnecter">Se Connecter</string>
+
+    <string name="valider">Valider</string>
+
+    <string name="nom">Nom</string>
+
+    <string name="prenom">Prénom</string>
+
+    <string name="home">Home</string>
+
+    <string name="ad">Publicité</string>
+
+    <string name="reseaux">Réseaux</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_base">BaseActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_profil_edit">ProfilEdit</string>
+    <string name="title_activity_social_group">SocialGroup</string>
+</resources>
