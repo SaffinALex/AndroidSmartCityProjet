@@ -53,7 +53,7 @@ public class News extends AppCompatActivity implements NavigationView.OnNavigati
             super.onBackPressed();
         }
     }
-    
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 

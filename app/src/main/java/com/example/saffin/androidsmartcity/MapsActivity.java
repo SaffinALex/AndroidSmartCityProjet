@@ -42,6 +42,8 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.Console;
 import java.security.Provider;
@@ -58,7 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private EditText input;
     private Location currentLocation = null;
 
-    DatabaseReference database_root, database_locations;
+    FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,15 +91,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         /** Places API **/
         // Initialize the SDK
-        //Places.initialize(getApplicationContext(), getResources().getValue("google_api_key",)); // TODO : Secure the API KEY !! AIzaSyBMsEY0ZSZu5-CI_R-cuMaM8vXx5mKeLHQ
+        Places.initialize(getApplicationContext(), "AIzaSyBMsEY0ZSZu5-CI_R-cuMaM8vXx5mKeLHQ"); // TODO : Secure the API KEY !! AIzaSyBMsEY0ZSZu5-CI_R-cuMaM8vXx5mKeLHQ
 
         // Create a new Places client instance
         PlacesClient placesClient = Places.createClient(this);
 
-        /** Firebase Database **/
-        database_root = FirebaseDatabase.getInstance().getReference();
-        database_locations = database_root.child("locations");
+        /** Firebase Firestore Database **/
 
+        FirebaseFirestore database = FirebaseFirestore.getInstance();
+        CollectionReference locationsCollectionRef = database.collection("locations");
+        locationsCollectionRef.document("Montpellier");
 
         /** Launches the map **/
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -167,7 +170,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mark.setSnippet(latLng.toString());
                 mark.setTitle("Marker_" + counter++);
                 mark.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-                database_locations.setValue(latLng);
             }
         });
 
