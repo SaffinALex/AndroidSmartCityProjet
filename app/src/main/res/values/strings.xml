@@ -52,6 +52,7 @@
     <string name="title_activity_base">BaseActivity</string>
 
     <string name="restaurant">Restaurant</string>
+    <string name="error_unknown_error">Une erreur a eu lieu</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

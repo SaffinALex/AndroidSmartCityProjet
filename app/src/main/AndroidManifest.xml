@@ -18,6 +18,8 @@
         <activity android:name=".Shop"></activity>
         <activity android:name=".Settings" />
         <activity android:name=".News" />
+        <activity android:name=".GroupTchat"></activity>
+        <activity android:name=".MyGroup" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -47,10 +49,13 @@
         <activity android:name=".Home" />
         <activity android:name=".ReceptionScreen" />
         <activity android:name=".Social" />
+        <activity android:name=".SocialGroup" />
         <activity
             android:name=".auth.BaseActivity"
             android:label="@string/title_activity_base"
             android:theme="@style/AppTheme" />
+        <activity android:name=".GroupCreate" />
+        <activity android:name=".ProfilEdit" />
     </application>
 
 </manifest>

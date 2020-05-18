@@ -1,13 +1,8 @@
 package com.example.saffin.androidsmartcity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,7 +10,6 @@ import android.widget.TextView;
 import com.example.saffin.androidsmartcity.auth.BaseActivity;
 import com.example.saffin.androidsmartcity.models.AdapterMessage;
 import com.example.saffin.androidsmartcity.models.GroupHelper;
-import com.example.saffin.androidsmartcity.models.MyAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -23,6 +17,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class GroupTchat extends BaseActivity {
     public String gid;
@@ -36,6 +34,7 @@ public class GroupTchat extends BaseActivity {
         TextView title = findViewById(R.id.groupName);
         title.setText(this.gid);
         getAllMessageForChat();
+
         this.configureToolBar();
 
         this.configureDrawerLayout();

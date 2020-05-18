@@ -7,34 +7,73 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:openDrawer="start"
-    tools:context=".Social">
+    android:visibility="visible"
+    tools:context=".Social"
+    tools:openDrawer="start">
 
     <!-- 1 | MainActivity RootView -->
+
+    <!-- 2 | NavigationView -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/activity_main_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:theme="@style/ToolBarStyle"
-            app:title="Social Network"/>
-
-        <!-- FrameLayout for our fragments -->
         <FrameLayout
             android:id="@+id/activity_main_frame_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" >
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/activity_main_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:theme="@style/ToolBarStyle" />
+        </FrameLayout>
+
+        <!-- FrameLayout for our fragments -->
 
     </LinearLayout>
 
-    <!-- 2 | NavigationView -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button9"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="74dp"
+            android:layout_marginTop="193dp"
+            android:text="Créer" />
+
+        <Button
+            android:id="@+id/button10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="58dp"
+            android:layout_marginTop="190dp"
+            android:text="Mes groupes" />
+
+        <Button
+            android:id="@+id/button7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="150dp"
+            android:layout_marginTop="277dp"
+            android:text="Groupes" />
+
+    </RelativeLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/activity_main_nav_view"
         android:layout_width="wrap_content"
@@ -42,6 +81,8 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/activity_main_nav_header"
-        app:menu="@menu/activity_main_menu_drawer" />
+        app:menu="@menu/activity_main_menu_drawer" >
+
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

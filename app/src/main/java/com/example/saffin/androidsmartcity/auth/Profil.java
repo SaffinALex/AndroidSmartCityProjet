@@ -42,8 +42,9 @@ public class Profil extends BaseActivity {
         else{
             goMainActivity();
         }
+
         toolbar = findViewById(R.id.toolbar3);
-        this.configureToolBar();
+        this.configureToolBarProfil();
 
 
         toolbar.setNavigationIcon(R.drawable.ic_action_ad_black_mdpi);
@@ -156,7 +157,7 @@ public class Profil extends BaseActivity {
     }
 
     // 1 - Configure Toolbar
-    private void configureToolBar(){
+    private void configureToolBarProfil(){
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }

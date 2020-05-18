@@ -1,11 +1,9 @@
 package com.example.saffin.androidsmartcity.models;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
@@ -16,12 +14,12 @@ import android.widget.TextView;
 import com.example.saffin.androidsmartcity.GroupTchat;
 import com.example.saffin.androidsmartcity.R;
 import com.example.saffin.androidsmartcity.Social;
-import com.example.saffin.androidsmartcity.auth.BaseActivity;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public List<String> list = new ArrayList<>();
@@ -90,7 +88,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public void displayGroupConfirm(final String name, final String uid){
             boolean estInscrit = false;
-            Log.d("gid", name);
+            if(!name.isEmpty())
+                Log.d("gid", name);
             AlertDialog.Builder builder = new AlertDialog.Builder(t);
             builder.setCancelable(true);
             builder.setTitle(name);

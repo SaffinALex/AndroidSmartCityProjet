@@ -62,7 +62,7 @@ public class Advertisement extends AppCompatActivity implements NavigationView.O
         StorageReference storageRef = storage.getReference();
         StorageReference videosRef = storageRef.child("Videos");
 
-        progressDialog = ProgressDialog.show(instance, "", "Buffering video...", true);
+        progressDialog = ProgressDialog.show(instance, "", "Loading video...", true);
 
         /***
          * Cheks all the videos stored and randomly chooses one to play

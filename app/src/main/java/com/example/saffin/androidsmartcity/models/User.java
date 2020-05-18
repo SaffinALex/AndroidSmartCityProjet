@@ -1,6 +1,7 @@
 package com.example.saffin.androidsmartcity.models;
 
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 /**
  * Created by Saffin on 29/04/2020.
@@ -17,7 +18,7 @@ public class User {
 
     public User() { }
 
-    public User(String uid, String username,String firstName, String secondName, String urlPicture, String age) {
+    public User(String uid, String username, String firstName, String secondName, String urlPicture, String age) {
         this.uid = uid;
         this.username = username;
         this.urlPicture = urlPicture;

@@ -1,6 +1,5 @@
 package com.example.saffin.androidsmartcity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.saffin.androidsmartcity.auth.BaseActivity;

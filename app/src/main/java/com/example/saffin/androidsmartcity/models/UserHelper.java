@@ -22,7 +22,7 @@ public class UserHelper {
 
     // --- CREATE ---
 
-    public static Task<Void> createUser(String uid, String username, String urlPicture,String age, String firstName, String secondName) {
+    public static Task<Void> createUser(String uid, String username, String urlPicture, String age, String firstName, String secondName) {
         User userToCreate = new User(uid, username, firstName, secondName, urlPicture, age);
         Log.d("coucou", "coucou");
         // 2 - Add a new User Document to Firestore

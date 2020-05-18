@@ -1,6 +1,5 @@
 package com.example.saffin.androidsmartcity.models;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,6 +16,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by Saffin on 02/05/2020.
@@ -54,7 +55,7 @@ public class GroupHelper {
         return GroupHelper.getGroupsUsersCollection(gid)
                 .add(user);
     }
-    public static void deleteGroupUser(final String gid,final String uid) {
+    public static void deleteGroupUser(final String gid, final String uid) {
         GroupHelper.getGroupsUsersCollection(gid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {

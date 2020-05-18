@@ -1,7 +1,5 @@
 package com.example.saffin.androidsmartcity.models;
 
-import android.support.annotation.Nullable;
-
 /**
  * Created by Saffin on 02/05/2020.
  */
@@ -15,7 +13,7 @@ public class Message {
 
     public Message() { }
 
-    public Message(String mid,String date, String message, String uid) {
+    public Message(String mid, String date, String message, String uid) {
         this.uid = uid;
         this.date = date;
         this.message = message;

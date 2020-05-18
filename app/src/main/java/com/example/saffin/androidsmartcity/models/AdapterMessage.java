@@ -1,12 +1,6 @@
 package com.example.saffin.androidsmartcity.models;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +8,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.saffin.androidsmartcity.R;
-import com.example.saffin.androidsmartcity.Social;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 public class AdapterMessage extends RecyclerView.Adapter<AdapterMessage.MyViewHolder> {
     public List<String> list = new ArrayList<>();
