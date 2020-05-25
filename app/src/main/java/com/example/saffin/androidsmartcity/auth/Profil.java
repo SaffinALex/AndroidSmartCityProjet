@@ -2,7 +2,6 @@ package com.example.saffin.androidsmartcity.auth;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,7 +16,10 @@ import com.example.saffin.androidsmartcity.models.User;
 import com.example.saffin.androidsmartcity.models.UserHelper;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
+
+import androidx.appcompat.app.AlertDialog;
 
 public class Profil extends BaseActivity {
     private static final int SIGN_OUT_TASK = 10;
@@ -74,10 +76,13 @@ public class Profil extends BaseActivity {
                     User currentUser = documentSnapshot.toObject(User.class);
                     String firstName = TextUtils.isEmpty(currentUser.getFirstName()) ? getString(R.string.no_username) : currentUser.getFirstName();
                     String age = TextUtils.isEmpty(currentUser.getAge()) ? getString(R.string.no_username) : currentUser.getAge();
+                    String city = TextUtils.isEmpty(currentUser.getAge()) ? getString(R.string.no_username) : currentUser.getCity();
                     String secondName = TextUtils.isEmpty(currentUser.getSecondName()) ? getString(R.string.no_username) : currentUser.getSecondName();
                     TextView textInputFirstName = (TextView)findViewById(R.id.editSecondName);
                     TextView textInputSecondName = (TextView)findViewById(R.id.editFirstName);
                     TextView textInputAge = (TextView)findViewById(R.id.textAge);
+                    TextView textInputCity = (TextView)findViewById(R.id.editCity);
+                    textInputCity.setText(city);
                     textInputAge.setText(age);
                     textInputFirstName.setText(firstName);
                     textInputSecondName.setText(secondName);
@@ -99,6 +104,7 @@ public class Profil extends BaseActivity {
         TextView mail = (TextView)findViewById(R.id.editMail);
         TextView nom = (TextView)findViewById(R.id.editSecondName);
         TextView prenom = (TextView)findViewById(R.id.editFirstName);
+        TextView ville = (TextView)findViewById(R.id.editCity);
 
         Intent intent = new Intent(Profil.this, ProfilEdit.class);
         //startActivity(intent);
@@ -106,13 +112,13 @@ public class Profil extends BaseActivity {
         intent.putExtra("Mail",mail.getText().toString());
         intent.putExtra("Nom",nom.getText().toString());
         intent.putExtra("Prenom",prenom.getText().toString());
+        intent.putExtra("City",ville.getText().toString());
         startActivityForResult(intent, 1);
     }
 
     public void onClickSignOutButton(View v) {
-        UserHelper.deleteUser(this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
+        //UserHelper.deleteUser(this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
         this.signOutUserFromFirebase();
-        goMainActivity();
     }
     public void goMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
@@ -125,6 +131,7 @@ public class Profil extends BaseActivity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         deleteUserFromFirebase();
+                     //   goMainActivity();
 
                     }
                 })
@@ -137,9 +144,11 @@ public class Profil extends BaseActivity {
             public void onSuccess(Void aVoid) {
                 switch (origin){
                     case SIGN_OUT_TASK:
+                        goMainActivity();
                         finish();
                         break;
                     case DELETE_USER_TASK:
+                        goMainActivity();
                         finish();
                         break;
                     default:
@@ -150,17 +159,18 @@ public class Profil extends BaseActivity {
     }
 
     private void signOutUserFromFirebase(){
-        AuthUI.getInstance()
-                .signOut(this)
-                .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(SIGN_OUT_TASK));
+        FirebaseAuth.getInstance()
+                .signOut();
+        goMainActivity();
     }
 
 
     private void deleteUserFromFirebase(){
         if (this.getCurrentUser() != null) {
-            AuthUI.getInstance()
-                    .delete(this)
-                    .addOnSuccessListener(this, this.updateUIAfterRESTRequestsCompleted(DELETE_USER_TASK));
+            FirebaseAuth.getInstance().getCurrentUser()
+                    .delete();
+            FirebaseAuth.getInstance()
+                    .signOut();
             goMainActivity();
         }
     }

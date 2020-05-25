@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/AndroidSmartCity.iml" filepath="$PROJECT_DIR$/AndroidSmartCity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AndroidSmartCityProjet.iml" filepath="$PROJECT_DIR$/AndroidSmartCityProjet.iml" group="AndroidSmartCityProjet" />
+      <module fileurl="file://$PROJECT_DIR$/app/AndroidSmartCityProjet-app.iml" filepath="$PROJECT_DIR$/app/AndroidSmartCityProjet-app.iml" group="AndroidSmartCityProjet/app" />
       <module fileurl="file://$PROJECT_DIR$/AndroidSmartCityProjet-master.iml" filepath="$PROJECT_DIR$/AndroidSmartCityProjet-master.iml" group="AndroidSmartCityProjet-master" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AndroidSmartCityProjet-master/app" />
+      <module fileurl="file://$PROJECT_DIR$/app/AndroidSmartCityProjet-master-app.iml" filepath="$PROJECT_DIR$/app/AndroidSmartCityProjet-master-app.iml" group="AndroidSmartCityProjet-master/app" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="AndroidSmartCityProjet/app" />
     </modules>
   </component>
 </project>

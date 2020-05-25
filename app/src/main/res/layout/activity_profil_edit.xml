@@ -82,6 +82,8 @@
             android:layout_alignStart="@+id/textView"
             android:layout_below="@+id/textView"
             android:layout_marginTop="11dp"
+            android:maxLength="10"
+            android:inputType="textShortMessage"
             android:text="TextView" />
 
         <TextView
@@ -91,6 +93,7 @@
             android:layout_alignBaseline="@+id/textView7"
             android:layout_alignBottom="@+id/textView7"
             android:layout_centerHorizontal="true"
+            android:layout_marginBottom="-4dp"
             android:text="Prénom" />
 
         <EditText
@@ -99,6 +102,10 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView5"
             android:layout_alignTop="@+id/editFirstName"
+            android:layout_marginStart="-19dp"
+            android:layout_marginTop="0dp"
+            android:maxLength="10"
+            android:inputType="textShortMessage"
             android:text="TextView" />
 
         <TextView
@@ -156,6 +163,29 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
         </Toolbar>
+
+        <EditText
+            android:id="@+id/editCity"
+            android:layout_width="117dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="150dp"
+            android:layout_marginEnd="84dp"
+            android:ems="10"
+            android:inputType="textShortMessage"
+            android:maxLength="10"
+            android:text="Name" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="203dp"
+            android:layout_marginStart="214dp"
+            android:text="Ville" />
 
     </RelativeLayout>
 </RelativeLayout>

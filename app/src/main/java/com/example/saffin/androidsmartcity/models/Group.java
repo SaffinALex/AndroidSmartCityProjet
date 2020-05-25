@@ -10,7 +10,7 @@ public class Group {
 
     public Group() { }
 
-    public Group(String gid,String name) {
+    public Group(String gid, String name) {
         this.gid = gid;
         this.name = name;
     }

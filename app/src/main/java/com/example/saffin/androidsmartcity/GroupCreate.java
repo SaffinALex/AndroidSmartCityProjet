@@ -1,12 +1,11 @@
 package com.example.saffin.androidsmartcity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.saffin.androidsmartcity.auth.BaseActivity;
 import com.example.saffin.androidsmartcity.models.GroupHelper;
@@ -17,6 +16,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 public class GroupCreate extends BaseActivity {
     public List<String> liste = new ArrayList<>();
@@ -37,7 +38,7 @@ public class GroupCreate extends BaseActivity {
 
             this.configureNavigationView();
 
-            getAllGroupsForChat();
+
         }
     }
 
@@ -57,22 +58,39 @@ public class GroupCreate extends BaseActivity {
                     for (DocumentSnapshot document : task.getResult()) {
                         list.add(document.getId());
                     }
-                    assignList(list);
+                    boolean t = false;
+                    EditText groupName = (EditText) findViewById(R.id.editTextGroup);
+                    String name = groupName.getText().toString();
+                    for(String s : list){
+                        if(s.equals(name)) t=true;
+                    }
+                    if(!t && (!name.isEmpty()) && name.length()<=20) {
+                        goAddGroup(name);
+                    }
+                    else if(name.length()>=20){
+                        Toast.makeText(GroupCreate.this.getApplicationContext(),
+                                "Le nom est trop long (>20 caractéres)",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(GroupCreate.this.getApplicationContext(),
+                                "Le groupe existe déjà",
+                                Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Log.d("hou", "Error getting documents: ", task.getException());
                 }
             }
         });
     }
+    private void goAddGroup(String name){
+        GroupHelper.createGroup(name, name).addOnFailureListener(this.onFailureListener());
+        GroupHelper.createGroupUsers(name, this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
+        startActivity(new Intent(this, SocialGroup.class));
+    }
     private void createGroupsFireBase(){
         if(this.getCurrentUser() != null){
-            EditText groupName = (EditText) findViewById(R.id.editTextGroup);
-            String name = groupName.getText().toString();
-            if(!existGroup(name)) {
-                GroupHelper.createGroup(name, name).addOnFailureListener(this.onFailureListener());
-                GroupHelper.createGroupUsers(name, this.getCurrentUser()).addOnFailureListener(this.onFailureListener());
-                startActivity(new Intent(this, SocialGroup.class));
-            }
+            getAllGroupsForChat();
         }
     }
 
@@ -88,7 +106,7 @@ public class GroupCreate extends BaseActivity {
             EditText groupName = (EditText)findViewById(R.id.editTextGroup);
             String name = groupName.getText().toString();
             if(!name.isEmpty()) {
-                GroupHelper.createGroupUsers(name, this.getCurrentUser()).addOnFailureListener(this.onFailureListener());
+                GroupHelper.createGroupUsers(name, this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
                 startActivity(new Intent(this, SocialGroup.class));
             }
         }

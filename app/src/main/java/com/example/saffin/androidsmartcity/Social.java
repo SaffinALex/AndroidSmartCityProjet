@@ -1,44 +1,35 @@
 package com.example.saffin.androidsmartcity;
 
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.MenuItem;
+import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.EditText;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.saffin.androidsmartcity.auth.BaseActivity;
 import com.example.saffin.androidsmartcity.auth.Profil;
-import com.example.saffin.androidsmartcity.models.Group;
-import com.example.saffin.androidsmartcity.models.GroupHelper;
-import com.example.saffin.androidsmartcity.models.UserHelper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
+import com.google.android.material.navigation.NavigationView;
+import androidx.appcompat.widget.Toolbar;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.List;
+public class Social extends BaseActivity {
 
-public class Social extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener{
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    private Button creerGroup;
+    private Button mesGroupes;
+    private Button groupes;
+
+    private Social instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
 
+        instance = this;
         // 6 - Configure all views
 
         this.configureToolBar();
@@ -46,22 +37,32 @@ public class Social extends BaseActivity implements NavigationView.OnNavigationI
         this.configureDrawerLayout();
 
         this.configureNavigationView();
+
+        creerGroup = (Button ) findViewById(R.id.button9);
+        mesGroupes = (Button) findViewById(R.id.button10);
+        groupes = (Button) findViewById(R.id.button7);
+
+        creerGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(instance, GroupCreate.class));
+            }
+        });
+
+        mesGroupes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(instance, MyGroup.class));
+            }
+        });
+
+        groupes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(instance, SocialGroup.class));
+            }
+        });
     }
-
-    public void onClickGoCreateGroups(View v){
-        Intent intent = new Intent(this, GroupCreate.class);
-        startActivity(intent);
-    }
-
-    public void onClickGoMyGroups(View v){
-        startActivity(new Intent(this, MyGroup.class));
-    }
-
-    public void onClickGoAllGroups(View v){
-        startActivity(new Intent(this, SocialGroup.class));
-    }
-
-
 
 
 }

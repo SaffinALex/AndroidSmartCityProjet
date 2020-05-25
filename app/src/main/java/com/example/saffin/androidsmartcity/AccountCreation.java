@@ -1,14 +1,6 @@
 package com.example.saffin.androidsmartcity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.design.widget.NavigationView;
-import android.view.MenuItem;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -21,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
+
+import androidx.annotation.NonNull;
 
 public class AccountCreation extends BaseActivity {
     FirebaseAuth firebaseAuth;
@@ -55,13 +49,28 @@ public class AccountCreation extends BaseActivity {
         EditText psw = (EditText) findViewById(R.id.password);
         String userEmail = mail.getText().toString();
         String userPaswd = psw.getText().toString();
-        if (userEmail.isEmpty()) {
+        EditText prenom = (EditText) findViewById(R.id.prenom);
+        EditText nom = (EditText) findViewById(R.id.nom);
+        String userNom = nom.getText().toString();
+        String userPrenom = prenom.getText().toString();
+        EditText ville = (EditText) findViewById(R.id.city);
+        String userVille = ville.getText().toString();
+        if (userNom.isEmpty()) {
+            nom.setError("Enter First Name");
+            nom.requestFocus();
+        }else if (userPrenom.isEmpty()) {
+            prenom.setError("Enter Second Name");
+            prenom.requestFocus();
+        } else if (userVille.isEmpty()) {
+            ville.setError("Enter City");
+            ville.requestFocus();
+        }else if (userEmail.isEmpty()) {
             mail.setError("Enter mail");
             mail.requestFocus();
-        } else if (userPaswd.isEmpty()) {
+        }else if (userPaswd.isEmpty()) {
             psw.setError("Enter Password");
             psw.requestFocus();
-        } else if (userEmail.isEmpty() && userPaswd.isEmpty()) {
+        }else if (userEmail.isEmpty() && userPaswd.isEmpty()) {
             Toast.makeText(AccountCreation.this, "Fields Empty!", Toast.LENGTH_SHORT).show();
         } else if (!(userEmail.isEmpty() && userPaswd.isEmpty())) {
             firebaseAuth.createUserWithEmailAndPassword(userEmail, userPaswd).addOnCompleteListener(AccountCreation.this, new OnCompleteListener() {
@@ -86,12 +95,14 @@ public class AccountCreation extends BaseActivity {
         if(this.getCurrentUser() != null){
             EditText firstName = (EditText) findViewById(R.id.prenom);
             EditText secondName = (EditText) findViewById(R.id.nom);
+            EditText cityName = (EditText) findViewById(R.id.city);
             String urlPicture = (this.getCurrentUser().getPhotoUrl() != null) ? this.getCurrentUser().getPhotoUrl().toString() : null;
             String username =  this.getCurrentUser().getDisplayName();
             String uid = this.getCurrentUser().getUid();
+            String city = cityName.getText().toString();
             String firstNameText = firstName.getText().toString();
             String secondNameText = secondName.getText().toString();
-            UserHelper.createUser(uid, username, urlPicture, "0", firstNameText, secondNameText).addOnFailureListener(this.onFailureListener());
+            UserHelper.createUser(uid, username, urlPicture, "99", firstNameText, secondNameText,city).addOnFailureListener(this.onFailureListener());
 
         }
     }

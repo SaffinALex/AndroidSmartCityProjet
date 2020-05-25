@@ -1,6 +1,5 @@
 package com.example.saffin.androidsmartcity.models;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -11,12 +10,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 /**
  * Created by Saffin on 02/05/2020.
@@ -50,43 +52,20 @@ public class GroupHelper {
                 .document(gid) // Setting uID for Document
                 .set(groupToCreate); // Setting object for Document
     }
-    public static Task<DocumentReference> createGroupUsers(String gid, FirebaseUser user) {
-        return GroupHelper.getGroupsUsersCollection(gid)
-                .add(user);
-    }
-    public static void deleteGroupUser(final String gid,final String uid) {
-        GroupHelper.getGroupsUsersCollection(gid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()) {
-                        List<String> list = new ArrayList<>();
-                        for (DocumentSnapshot document : task.getResult()) {
-                            if(document.get("uid").toString() == uid ) {
-                                GroupHelper.getGroupsUsersCollection(gid).document(GroupHelper.getGroupsUsersCollection(gid).getId()).delete()
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                Log.d("error", "DocumentSnapshot successfully deleted!");
-                                            }
-                                        })
-                                        .addOnFailureListener(new OnFailureListener() {
-                                            @Override
-                                            public void onFailure(@NonNull Exception e) {
-                                                Log.w("error", "Error deleting document", e);
-                                            }
-                                        });
-                            }
-
-                        }
-                    } else {
-                        Log.d("hou", "Error getting documents: ", task.getException());
-                    }
-                }
-            });
+    public static Task<Void> createGroupUsers(String gid, String uid) {
+       return GroupHelper.getGroupsCollection().document(gid).update("users", FieldValue.arrayUnion(uid));
+   }
+    public static void deleteGroupUser(final String gid, final String uid) {
+        GroupHelper.getGroupsCollection().document(gid).update("users", FieldValue.arrayRemove(uid));
         }
 
     public static Task<DocumentReference> createGroupMessages(String gid, String content, String uid) {
         Message m = new Message(content, uid);
+        return GroupHelper.getGroupsMessagesCollection(gid)
+                .add(m);
+    }
+    public static Task<DocumentReference> createGroupMessages(String gid, String content, String uid, String date) {
+        Message m = new Message(content, uid,date);
         return GroupHelper.getGroupsMessagesCollection(gid)
                 .add(m);
     }

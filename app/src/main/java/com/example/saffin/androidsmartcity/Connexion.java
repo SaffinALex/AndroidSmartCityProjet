@@ -1,16 +1,8 @@
 package com.example.saffin.androidsmartcity;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.design.widget.NavigationView;
 import android.util.Log;
-import android.view.MenuItem;
-
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,6 +13,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
+
+import androidx.annotation.NonNull;
 
 public class Connexion extends BaseActivity {
     FirebaseAuth firebaseAuth;
@@ -57,10 +51,10 @@ public class Connexion extends BaseActivity {
         String userEmail = mail.getText().toString();
         String userPaswd = psw.getText().toString();
         if (userEmail.isEmpty()) {
-            mail.setError("m");
+            mail.setError("Remplir Mail");
             mail.requestFocus();
         } else if (userPaswd.isEmpty()) {
-            psw.setError("s");
+            psw.setError("Remplir Password");
             psw.requestFocus();
         } else if (userEmail.isEmpty() && userPaswd.isEmpty()) {
             Toast.makeText(Connexion.this, R.string.emptyField, Toast.LENGTH_SHORT).show();
@@ -91,7 +85,7 @@ public class Connexion extends BaseActivity {
 
                             if (task.isSuccessful()) {
                                 Log.d("ici","coucou");
-                                Toast.makeText(Connexion.this, R.string.sendMailPassword, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(Connexion.this, "Email envoyé", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

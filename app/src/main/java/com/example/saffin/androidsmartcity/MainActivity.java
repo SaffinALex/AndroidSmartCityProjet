@@ -2,13 +2,10 @@ package com.example.saffin.androidsmartcity;
 
         import android.app.Activity;
         import android.content.Intent;
-        import android.support.v7.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatActivity;
         import android.os.Bundle;
-        import android.support.v7.app.ActionBarDrawerToggle;
-        import android.support.v4.widget.DrawerLayout;
-        import android.support.design.widget.NavigationView;
-        import android.view.MenuItem;
-        import android.os.Bundle;
+        import androidx.appcompat.app.ActionBarDrawerToggle;
+
         import android.view.View;
 
         import com.example.saffin.androidsmartcity.auth.BaseActivity;
@@ -22,19 +19,29 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reception_screen);
+        if(this.isCurrentUserLogged()) {
+                startActivity(new Intent(MainActivity.this, Home.class));
+        }
+        else {
+            setContentView(R.layout.activity_reception_screen);
+        }
     }
-    protected void onResume() {
+   /* protected void onResume() {
         super.onResume();
         // 5 - Update UI when activity is resuming
         this.updateUIWhenResuming();
-    }
+    }*/
 
     //FOR DATA
     // 1 - Identifier for Sign-In Activity
     private static final int RC_SIGN_IN = 123;
 
- /*   private void startSignInActivity(){
+    // --------------------
+    // NAVIGATION
+    // --------------------
+
+    // 2 - Launch Sign-In Activity
+    private void startSignInActivity(){
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -46,7 +53,7 @@ public class MainActivity extends BaseActivity {
                         .setIsSmartLockEnabled(false, true)
                         .build(),
                 RC_SIGN_IN);
-    } */
+    }
 
     public void goIdentification(View v) throws IOException {
         if (this.isCurrentUserLogged()){
