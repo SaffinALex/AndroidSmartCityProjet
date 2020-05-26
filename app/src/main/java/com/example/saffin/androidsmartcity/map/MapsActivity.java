@@ -1,84 +1,65 @@
-package com.example.saffin.androidsmartcity;
+package com.example.saffin.androidsmartcity.map;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
-import android.content.Context;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationManager;
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.system.Os;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.maps.CameraUpdate;
+import com.example.saffin.androidsmartcity.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.CancellationToken;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.LocationBias;
-import com.google.android.libraries.places.api.model.LocationRestriction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.io.Console;
-import java.security.Provider;
+import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener {
 
     private GoogleMap mMap;
     private MapsActivity instance;
-    private int counter = 0;
-    private Location currentLocation = null;
     private PlacesClient placesClient;
-    private GeoPoint cityGeoPoint = null;
+    private LatLng cityCoordinates = null;
     private String API_KEY;
-
-    FirebaseFirestore database;
+    private EditText search_field;
+    private FirebaseFirestore database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,65 +69,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         API_KEY = getString(R.string.maps_api_key); // Retrieves API KEY From Graddle Properties
 
+        retrieveCoordinatesFromPreferences();
 
-        /** Firebase Firestore Database **/
+        initializePlacesAPI();
 
-        database = FirebaseFirestore.getInstance();
-
-        /*** Retrieves City Coordinates ***/
-        System.out.println("Retrieving city coordinates");
-        CollectionReference locationsCollectionRef = database.collection("locations");
-        locationsCollectionRef.document("Montpellier").get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
-                                System.out.println("DocumentSnapshot data: " + document.getData());
-                                cityGeoPoint = document.getGeoPoint("LatLng");
-                            } else {
-                                System.out.println("No such document");
-                            }
-                        } else {
-                            System.out.println("get failed with "+ task.getException());
-                        }
-                    }
-                });
-
-        displayUser();
-
-        /** Places API **/
-        // Initialize the SDK
-        Places.initialize(getApplicationContext(), API_KEY );
-
-        // Create a new Places client instance
-        placesClient = Places.createClient(instance);
-
-        /** Launches the map **/
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        // Obtain the SupportMapFragment and get notified when the com.example.saffin.androidsmartcity.map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
 
-    private void displayUser(){
-        SharedPreferences settings = getSharedPreferences("preferences", MODE_PRIVATE);
-
-        System.out.println("\n" + settings.getString("First_Name",""));
-        System.out.println(settings.getString("Last_Name",""));
-        System.out.println(settings.getString("Pseudo",""));
-        System.out.println(settings.getString("E_Mail",""));
-        System.out.println(settings.getString("City_Name",""));
-        System.out.println(settings.getString("City_Coordinates",""));
-        System.out.println(settings.getString("UID",""));
-        System.out.println(settings.getInt("Age",0));
-    }
-
-
     /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
+     * Manipulates the com.example.saffin.androidsmartcity.map once available.
+     * This callback is triggered when the com.example.saffin.androidsmartcity.map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
      * we just add a marker near Sydney, Australia.
      * If Google Play services is not installed on the device, the user will be prompted to install
@@ -155,9 +90,54 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        mMap.clear();
 
+        permissionManagement();
+        mapSetup(googleMap);
+        researchSetup();
+
+    }
+
+    private void researchSetup(){
+        search_field = (EditText) findViewById(R.id.search_field);
+
+        search_field.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+
+                    mMap.clear();
+
+                    Object transferData[] = new Object[2];
+                    GetNearbyPlaces nearbyPlaces = new GetNearbyPlaces(instance);
+
+                    String research_keyword = search_field.getText().toString();
+
+                    research_keyword = Normalizer.normalize(research_keyword, Normalizer.Form.NFD);
+                    research_keyword = research_keyword.replaceAll("[^\\p{ASCII}]", "");
+
+                    String url = getURL(cityCoordinates,research_keyword);
+
+                    transferData[0] = mMap;
+                    transferData[1] = url;
+
+                    System.out.println("Searching for nearby " + research_keyword);
+
+                    nearbyPlaces.execute(transferData);
+
+                    hideKeyboard(instance);
+                    search_field.clearFocus();
+
+                    //placesClient.fetchPlace();
+
+                    handled = true;
+                }
+                return handled;
+            }
+        });
+    }
+
+    private void permissionManagement(){
         /** Asking For Permission **/
         int hasLocationPermission = checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION);
         List<String> permissions = new ArrayList<String>();
@@ -172,205 +152,62 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             onRequestPermissionsResult(0, permissions.toArray(new String[permissions.size()]), new int[permissions.size()]);
         }
+    }
 
-        if(cityGeoPoint != null)
-         mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(cityGeoPoint.getLatitude(), cityGeoPoint.getLongitude())));
+    private void mapSetup(GoogleMap googleMap){
+        mMap = googleMap;
+        mMap.clear();
 
-        /***
-         * Places AutoComplete
-         */
-        // Initialize the AutocompleteSupportFragment.
-        AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
-                getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(cityCoordinates,12));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(cityCoordinates, 12.0f));
 
-        // Specify the types of place data to return.
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
-
-        // Set up a PlaceSelectionListener to handle the response.
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                // TODO: Get info about the selected place.
-               System.out.println("Place: " + place.getName() + ", " + place.getId());
-            }
-
-            @Override
-            public void onError(Status status) {
-                // TODO: Handle the error.
-                System.out.println("An error occurred: " + status);
-            }
-        });
-
-        /** ***************
-         * From here it's the Actual Map manipulation
-         * **************** **/
-
-        /** Adds the "MyLocation" button **/
         mMap.setMyLocationEnabled(true);
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
-        mMap.setIndoorEnabled(true);
-        mMap.setTrafficEnabled(true);
-
-        /** Gets the current position **/
- /*       LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        currentLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-        if (currentLocation != null) {
-            LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
-        } else {
-            // Moves the camera on Sydney
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(-34, 151)));
-        }*/
-
-
-        /** Allows to add Markers **/
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                Marker mark = mMap.addMarker(new MarkerOptions().position(latLng));
-                mark.setSnippet(latLng.toString());
-                mark.setTitle("Marker_" + counter++);
-                mark.setIcon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-
-                /** Tries The Places API **/
-
-               /* List<Place.Field> fields = new ArrayList<>();
-
-                fields.add(Place.Field.NAME);
-                fields.add(Place.Field.ADDRESS);
-                fields.add(Place.Field.LAT_LNG);
-
-                Task<FindCurrentPlaceResponse> placeResponse = placesClient.findCurrentPlace(FindCurrentPlaceRequest.builder(fields).build());
-
-                placeResponse.addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
-                    @Override
-                    public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
-                        if (task.isSuccessful()) {
-                            FindCurrentPlaceResponse response = task.getResult();
-                            for (PlaceLikelihood placeLikelihood : response.getPlaceLikelihoods()) {
-                                System.out.println("Place " + placeLikelihood.getPlace().getName() + " has likelihood: " + placeLikelihood.getLikelihood());
-                            }
-                        } else {
-                            Exception exception = task.getException();
-                            if (exception instanceof ApiException) {
-                                ApiException apiException = (ApiException) exception;
-                                System.out.println("Place not found: " + apiException.getStatusCode());
-                            }
-                        }
-                    }
-                });*/
-
-                String nearbySearchRequest = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?&";
-                String location = "location=" + Double.toString(43.61092) + "," + Double.toString(3.87723);
-                String radius = "radius=" + Integer.toString(10000);
-                String keyword = "keyword=restaurant";
-                String language = "language=fr";
-                nearbySearchRequest += location + "&" + radius + "&" + keyword + "&" + language + "&" + API_KEY;
-
-                placesClient.fetchPlace(FetchPlaceRequest.newInstance(nearbySearchRequest,Arrays.asList(Place.Field.ID, Place.Field.NAME)))
-                        .addOnSuccessListener(new OnSuccessListener<FetchPlaceResponse>() {
-                            @Override
-                            public void onSuccess(FetchPlaceResponse fetchPlaceResponse) {
-                                System.out.println("Success");
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-
-                    }
-                });
-
-            }
-        });
-
-
-        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
-            @Override
-            public boolean onMarkerClick(Marker marker) {
-
-                LatLng latLng = marker.getPosition();
-                PlacesClient mPlacesClient = Places.createClient(getApplicationContext());
-
-                // Use fields to define the data types to return.
-                List<Place.Field> placeFields = Arrays.asList(Place.Field.NAME, Place.Field.ADDRESS,
-                        Place.Field.LAT_LNG);
-
-                // Use the builder to create a FindCurrentPlaceRequest.
-                FindCurrentPlaceRequest request = FindCurrentPlaceRequest.newInstance(placeFields);
-
-                // Get the likely places - that is, the businesses and other points of interest that
-                // are the best match for the device's current location.
-                assert mPlacesClient != null;
-                @SuppressWarnings("MissingPermission") final Task<FindCurrentPlaceResponse> placeResult =
-                        mPlacesClient.findCurrentPlace(request);
-                placeResult.addOnCompleteListener(new OnCompleteListener<FindCurrentPlaceResponse>() {
-                    @Override
-                    public void onComplete(@NonNull Task<FindCurrentPlaceResponse> task) {
-                        if (task.isSuccessful() && task.getResult() != null) {
-                            FindCurrentPlaceResponse likelyPlaces = task.getResult();
-
-                            // Set the count, handling cases where less than 5 entries are returned.
-                            int count;
-                            if (likelyPlaces.getPlaceLikelihoods().size() < 5) {
-                                count = likelyPlaces.getPlaceLikelihoods().size();
-                            } else {
-                                count = 5;
-                            }
-
-                            int i = 0;
-                            String[] mLikelyPlaceNames = new String[count];
-                            String[] mLikelyPlaceAddresses = new String[count];
-                            List[] mLikelyPlaceAttributions = new List[count];
-                            LatLng[] mLikelyPlaceLatLngs = new LatLng[count];
-
-                            for (PlaceLikelihood placeLikelihood : likelyPlaces.getPlaceLikelihoods()) {
-                                // Build a list of likely places to show the user.
-                                mLikelyPlaceNames[i] = placeLikelihood.getPlace().getName();
-                                mLikelyPlaceAddresses[i] = placeLikelihood.getPlace().getAddress();
-                                mLikelyPlaceAttributions[i] = placeLikelihood.getPlace()
-                                        .getAttributions();
-                                mLikelyPlaceLatLngs[i] = placeLikelihood.getPlace().getLatLng();
-
-                                i++;
-                                if (i > (count - 1)) {
-                                    break;
-                                }
-                            }
-
-                            for (int j = 0; j < mLikelyPlaceNames.length; j++) {
-                                System.err.println("PlaceName: " + mLikelyPlaceNames[j].toString());
-                            }
-                            for (int j = 0; j < mLikelyPlaceAddresses.length; j++) {
-                                System.err.println("PlaceAdresse: " + mLikelyPlaceAddresses[j].toString());
-                            }
-                            for (int j = 0; j < mLikelyPlaceAttributions.length; j++) {
-                                System.err.println("PlaceAttribution: " + mLikelyPlaceAttributions[j].toString());
-                            }
-                            for (int j = 0; j < mLikelyPlaceLatLngs.length; j++) {
-                                System.err.println("PlaceCoordinates: " + mLikelyPlaceLatLngs[j].toString());
-                            }
-
-                            // Show a dialog offering the user the list of likely places, and add a
-                            // marker at the selected place.
-                            //instance.openPlacesDialog();
-                        } else {
-                            System.err.println("Exception: " + task.getException());
-                        }
-                    }
-                });
-
-                // Return false to indicate that we have not consumed the event and that we wish
-                // for the default behavior to occur (which is for the camera to move such that the
-                // marker is centered and for the marker's info window to open, if it has one).
-                return false;
-            }
-
-
-        });
     }
 
+    private void initializePlacesAPI(){
+        Places.initialize(getApplicationContext(), API_KEY ); // Initialize the SDK
+        placesClient = Places.createClient(instance); // Create a new Places client instance
+    }
+
+    private void retrieveCoordinatesFromPreferences(){
+        SharedPreferences settings = getSharedPreferences("preferences", MODE_PRIVATE);
+        String data = settings.getString("City_Coordinates","");
+        String latitude = data.substring(data.indexOf('(') + 1,data.indexOf(','));
+        String longitude = data.substring(data.indexOf(',') + 1, data.length() - 1);
+        System.out.println(latitude);
+        System.out.println(longitude);
+
+        cityCoordinates = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
+    }
+
+    private String getURL(LatLng coordinates, String input){
+        StringBuilder googleURL = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+
+        String location = "location=" + Double.toString(coordinates.latitude) + "," + Double.toString(coordinates.longitude);
+        String radius = "radius=" + Integer.toString(10000);
+        String keyword = "keyword=" + input;
+        String language = "language=fr";
+        String key = "key=" + API_KEY;
+
+        googleURL.append(location + "&" + radius + "&" + keyword + "&" + language + "&" + key);
+
+        Log.d("MapsActivity","url: " + googleURL.toString());
+
+        return googleURL.toString();
+    }
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
 
     @Override
     public boolean onMyLocationButtonClick() {

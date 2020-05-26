@@ -1,4 +1,4 @@
-package map;
+package com.example.saffin.androidsmartcity.map;
 
 import java.io.BufferedReader;
 import java.io.IOException;
