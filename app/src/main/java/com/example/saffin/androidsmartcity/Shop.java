@@ -41,7 +41,6 @@ public class Shop extends AppCompatActivity implements NavigationView.OnNavigati
         this.instance = this;
 
         mapBtn = (Button) findViewById(R.id.mapBtn);
-        annuairBtn = (Button) findViewById(R.id.annuaireBtn);
         favBtn = (Button) findViewById(R.id.favoriteBtn);
 
         mapBtn.setOnClickListener(new View.OnClickListener() {
