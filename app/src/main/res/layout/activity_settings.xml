@@ -24,7 +24,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:theme="@style/ToolBarStyle"
-            app:title="Settings"/>
+            app:title="@string/parametres"/>
 
         <!-- FrameLayout for our fragments -->
         <FrameLayout

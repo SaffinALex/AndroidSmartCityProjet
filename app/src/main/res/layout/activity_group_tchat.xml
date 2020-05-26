@@ -75,7 +75,7 @@
         android:layout_marginStart="36dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Message" />
+        android:text="@string/message" />
 
     <TextView
         android:id="@+id/groupName"
@@ -86,7 +86,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="174dp"
         android:layout_marginTop="106dp"
-        android:text="TextView" />
+        android:text="@string/textview" />
 
     <Button
         android:id="@+id/button6"
@@ -96,6 +96,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="125dp"
         android:onClick="onClickSendMessage"
-        android:text="Envoyer" />
+        android:text="@string/envoyer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

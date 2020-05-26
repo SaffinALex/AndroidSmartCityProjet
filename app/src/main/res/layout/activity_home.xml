@@ -25,7 +25,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:theme="@style/ToolBarStyle"
-            app:title="Home"/>
+            app:title="@string/accueil"/>
 
         <CalendarView
             android:id="@+id/calendarView"
@@ -64,7 +64,7 @@
                 android:id="@+id/displayEvent"
                 android:textColor="@android:color/black"
                 android:layout_toRightOf="@id/displayEventDate"
-                android:text="Aucun Evenement"
+                android:text="@string/aucunEvenement"
                 ></TextView>
 
             <Button
@@ -80,8 +80,6 @@
                 ></Button>
 
         </RelativeLayout>
-
-
 
         <!-- FrameLayout for our fragments -->
         <FrameLayout

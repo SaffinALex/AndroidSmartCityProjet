@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
-        android:text="Informations"
+        android:text="@string/info"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -68,7 +68,7 @@
         android:layout_marginTop="21dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Name" />
+        android:text="@string/nom" />
 
     <TextView
         android:id="@+id/textView3"
@@ -77,7 +77,7 @@
         android:layout_alignStart="@+id/editText2"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="29dp"
-        android:text="Pseudo" />
+        android:text="@string/pseudo" />
 
     <TextView
         android:id="@+id/textView4"
@@ -86,7 +86,7 @@
         android:layout_alignStart="@+id/editText"
         android:layout_below="@+id/editText2"
         android:layout_marginTop="16dp"
-        android:text="Adresse Mail" />
+        android:text="@string/mail" />
 
     <Button
         android:id="@+id/button2"
@@ -97,7 +97,7 @@
         android:layout_marginStart="18dp"
         android:layout_marginBottom="17dp"
         android:onClick="onClickSignOutButton"
-        android:text="DECONNECTER" />
+        android:text="@string/deconnect" />
 
     <Button
         android:id="@+id/button3"
@@ -106,7 +106,7 @@
         android:layout_alignBottom="@+id/button2"
         android:layout_centerHorizontal="true"
         android:onClick="onClickUpdateButton"
-        android:text="MODIFIER" />
+        android:text="@string/modif" />
 
     <Button
         android:id="@+id/button4"
@@ -116,6 +116,6 @@
         android:layout_alignBottom="@+id/button3"
         android:layout_toEndOf="@+id/editText"
         android:onClick="onClickDeleteButton"
-        android:text="SUPPRIMER" />
+        android:text="@string/suppr" />
 
 </RelativeLayout>

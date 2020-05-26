@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.saffin.androidsmartcity.auth.Profil;
+import com.example.saffin.androidsmartcity.map.MapsActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class Shop extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -20,6 +22,10 @@ public class Shop extends AppCompatActivity implements NavigationView.OnNavigati
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Shop instance;
+
+    private Button mapBtn;
+    private Button annuairBtn;
+    private Button favBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +40,16 @@ public class Shop extends AppCompatActivity implements NavigationView.OnNavigati
 
         this.instance = this;
 
+        mapBtn = (Button) findViewById(R.id.mapBtn);
+        annuairBtn = (Button) findViewById(R.id.annuaireBtn);
+        favBtn = (Button) findViewById(R.id.favoriteBtn);
+
+        mapBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(instance, MapsActivity.class));
+            }
+        });
     }
     @Override
     public void onBackPressed() {

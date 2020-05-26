@@ -1,14 +1,15 @@
 package com.example.saffin.androidsmartcity;
 
         import android.content.Intent;
-        import androidx.appcompat.app.AppCompatActivity;
+
+        import android.content.SharedPreferences;
         import android.os.Bundle;
-        import androidx.appcompat.app.ActionBarDrawerToggle;
 
         import android.view.View;
 
         import com.example.saffin.androidsmartcity.auth.BaseActivity;
         import com.firebase.ui.auth.AuthUI;
+        import com.google.android.gms.maps.model.LatLng;
 
         import java.io.IOException;
         import java.util.Arrays;
@@ -19,7 +20,27 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reception_screen);
+
+        setUserPreference();
     }
+
+    private void setUserPreference(){
+        LatLng loc = new LatLng(43.61092,3.87723);
+        SharedPreferences settings = getSharedPreferences("preferences",MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString("First_Name","Default_FirstName");
+        editor.putString("Last_Name","Default_LastName");
+        editor.putString("Pseudo","Default_Pseudo");
+        editor.putString("Password","Default_Password");
+        editor.putString("E_Mail","Default@mail.com");
+        editor.putString("City_Name","Montpellier");
+        editor.putString("City_Coordinates",loc.toString());
+        editor.putString("UID","Default_UID");
+        editor.putInt("Age",12);
+        editor.commit();
+    }
+
+
     protected void onResume() {
         super.onResume();
         // 5 - Update UI when activity is resuming
