@@ -1,6 +1,7 @@
 package com.example.saffin.androidsmartcity.auth;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -107,7 +108,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     // 2 - Configure Drawer Layout
     protected void configureDrawerLayout(){
         this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
-
+        Log.d("coucou", String.valueOf(drawerLayout));
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();

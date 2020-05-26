@@ -61,6 +61,9 @@ public class Home extends BaseActivity implements NavigationView.OnNavigationIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!this.isCurrentUserLogged()) {
+            startActivity(new Intent(Home.this, MainActivity.class));
+        }
         setContentView(R.layout.activity_home);
 
         this.configureToolBar();

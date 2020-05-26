@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.saffin.androidsmartcity.auth.BaseActivity;
 import com.example.saffin.androidsmartcity.models.GroupHelper;
@@ -90,6 +92,14 @@ public class SocialGroup extends BaseActivity {
         final RecyclerView rv = (RecyclerView) findViewById(R.id.recycler);
         rv.setLayoutManager(new LinearLayoutManager(this));
         String uid = this.getCurrentUser().getUid();
+        if(!list.isEmpty()){
+            TextView t = (TextView)findViewById(R.id.textNoGroup);
+            t.setVisibility(View.INVISIBLE);
+        }
+        else{
+            TextView t = (TextView)findViewById(R.id.textNoGroup);
+            t.setVisibility(View.VISIBLE);
+        }
         rv.setAdapter(new MyAdapter(list, SocialGroup.this, l,uid, getCurrentUser()));
     }
 

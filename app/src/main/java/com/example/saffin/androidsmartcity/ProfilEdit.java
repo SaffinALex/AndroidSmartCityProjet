@@ -15,6 +15,11 @@ public class ProfilEdit extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_edit);
+        this.configureToolBar();
+
+        this.configureDrawerLayout();
+
+        this.configureNavigationView();
         Intent i = getIntent();
 
         EditText age = findViewById(R.id.editAge);

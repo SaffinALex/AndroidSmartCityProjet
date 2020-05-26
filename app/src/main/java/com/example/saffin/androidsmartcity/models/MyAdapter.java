@@ -18,6 +18,8 @@ import com.example.saffin.androidsmartcity.R;
 import com.example.saffin.androidsmartcity.Social;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +38,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         this.list = list;
         this.t = t;
         this.user = user;
-
         this.listUsersByGroup = listUsersByGroup;
         this.uid = uid;
 

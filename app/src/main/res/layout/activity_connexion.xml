@@ -79,15 +79,15 @@
     <Button
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:text="@string/seConnecter"
+        android:layout_alignParentEnd="true"
         android:layout_below="@id/questionPass"
-        android:layout_centerHorizontal="true"
-        android:textSize="20sp"
-        android:layout_marginTop="50dp"
-        android:onClick="goHome"
+        android:layout_marginEnd="113dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_button"
-        android:padding="10dp"/>
-
+        android:onClick="goHome"
+        android:padding="10dp"
+        android:text="@string/seConnecter"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>
