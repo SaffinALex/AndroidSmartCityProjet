@@ -28,6 +28,33 @@
     <string name="connexion">Connexion</string>
 
     <string name="mail">Adresse Mail</string>
+
+    <string name="aucunEvenement">Aucun Evenement</string>
+
+    <string name="news">News</string>
+
+    <string name="pseudo">Pseudo</string>
+
+    <string name="deconnect">Déconnecter</string>
+
+    <string name="shopping">Shopping</string>
+
+    <string name="fav">Favoris</string>
+
+    <string name="mesGroupes">Mes Groupes</string>
+
+    <string name="groupes">Groupes</string>
+
+    <string name="nomGroupe">Nom Du Groupe</string>
+
+    <string name="modif">Modifier</string>
+
+    <string name="suppr">Supprimer</string>
+
+    <string name="age">Age</string>
+
+    <string name="parametres">Paramètres</string>
+
     <string name="Profil">Profil</string>
 
     <string name="motDePasse">Mot de Passe</string>
@@ -47,10 +74,34 @@
     <string name="ad">Publicité</string>
 
     <string name="reseaux">Réseaux</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
+
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
     <string name="title_activity_base">BaseActivity</string>
+
+    <string name="restaurant">Restaurant</string>
+
+    <string name="error_unknown_error">Une erreur a eu lieu</string>
+
+    <string name="add_favorite">Add to Favorites</string>
+
+    <string name="map">Map</string>
+
+    <string name="ads">Advertisement</string>
+
+    <string name="info">Informations</string>
+
+    <string name="textview">TextView</string>
+
+    <string name="creer">Créer</string>
+
+    <string name="message">Message</string>
+
+    <string name="envoyer">Envoyer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

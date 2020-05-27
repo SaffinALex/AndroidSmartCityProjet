@@ -1,0 +1,68 @@
+<!-- <?xml version="1.0" encoding="utf-8"?>
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:com.example.saffin.androidsmartcity.map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/com.example.saffin.androidsmartcity.map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MapsActivity"
+    /> -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/activity_main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/map"
+        app:titleTextColor="@android:color/white" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context=".map.MapsActivity"
+        android:id="@+id/map_frame_layout"
+        app:layout_constraintTop_toBottomOf="@id/activity_main_toolbar">
+
+
+        <fragment
+            android:id="@+id/map"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            tools:context=".map.MapsActivity" />
+
+        <EditText
+        android:layout_marginTop="12.7dp"
+        android:layout_marginLeft="5dp"
+        android:layout_width="335dp"
+        android:layout_height="39dp"
+        android:id="@+id/search_field"
+        android:drawableRight="@drawable/quantum_ic_search_grey600_24"
+        android:background="@color/quantum_white_100"
+        android:inputType="textAutoComplete"
+        android:paddingLeft="5dp"
+        android:hint="@string/restaurant"
+        android:imeOptions="actionSearch"
+        ></EditText>
+
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="429dp"
+        app:layout_constraintTop_toBottomOf="@id/map_frame_layout"
+        app:layout_constraintBottom_toBottomOf="parent"></androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

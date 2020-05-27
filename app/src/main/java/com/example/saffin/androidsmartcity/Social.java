@@ -1,25 +1,35 @@
 package com.example.saffin.androidsmartcity;
 
-import android.support.v4.view.GravityCompat;
-import android.support.v7.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.design.widget.NavigationView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.example.saffin.androidsmartcity.auth.BaseActivity;
+import com.example.saffin.androidsmartcity.auth.Profil;
+import com.google.android.material.navigation.NavigationView;
+import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
-import android.os.Bundle;
+public class Social extends BaseActivity {
 
-public class Social extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
-    private Toolbar toolbar;
-    private DrawerLayout drawerLayout;
-    private NavigationView navigationView;
+    private Button creerGroup;
+    private Button mesGroupes;
+    private Button groupes;
+
+    private Social instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_social);
+
+        instance = this;
         // 6 - Configure all views
 
         this.configureToolBar();
@@ -27,62 +37,32 @@ public class Social extends AppCompatActivity implements NavigationView.OnNaviga
         this.configureDrawerLayout();
 
         this.configureNavigationView();
+
+        creerGroup = (Button ) findViewById(R.id.button9);
+        mesGroupes = (Button) findViewById(R.id.button10);
+        groupes = (Button) findViewById(R.id.button7);
+
+        creerGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(instance, GroupCreate.class));
+            }
+        });
+
+        mesGroupes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(instance, MyGroup.class));
+            }
+        });
+
+        groupes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(instance, SocialGroup.class));
+            }
+        });
     }
 
-    @Override
-    public void onBackPressed() {
-        // 5 - Handle back click to close menu
-        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            this.drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }
 
-
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-
-        // 4 - Handle Navigation Item Click
-        int id = item.getItemId();
-
-        switch (id){
-            case R.id.activity_main_drawer_news :
-                break;
-            case R.id.activity_main_drawer_profile:
-                break;
-            case R.id.activity_main_drawer_settings:
-                break;
-            default:
-                break;
-        }
-
-        this.drawerLayout.closeDrawer(GravityCompat.START);
-
-        return true;
-    }
-
-    // ---------------------
-    // CONFIGURATION
-    // ---------------------
-
-    // 1 - Configure Toolbar
-    private void configureToolBar(){
-        this.toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
-        setSupportActionBar(toolbar);
-    }
-
-    // 2 - Configure Drawer Layout
-    private void configureDrawerLayout(){
-        this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
-    }
-
-    // 3 - Configure NavigationView
-    private void configureNavigationView(){
-        this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-    }
 }
