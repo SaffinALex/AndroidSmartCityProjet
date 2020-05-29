@@ -9,12 +9,16 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.saffin.androidsmartcity.auth.BaseActivity;
 import com.example.saffin.androidsmartcity.models.UserHelper;
 import com.google.android.gms.maps.model.LatLng;
@@ -28,9 +32,16 @@ import java.util.Locale;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class AccountCreation extends BaseActivity {
     FirebaseAuth firebaseAuth;
+    // 1 - STATIC DATA FOR PICTURE
+    private static final String PERMS = Manifest.permission.READ_EXTERNAL_STORAGE;
+    private static final int RC_IMAGE_PERMS = 100;
+    private Uri uriImageSelected;
+    private static final int RC_CHOOSE_PHOTO = 200;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +50,48 @@ public class AccountCreation extends BaseActivity {
         }
         else{
             setContentView(R.layout.activity_account_creation);
+        }
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // 2 - Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 6 - Calling the appropriate method after activity result
+        this.handleResponse(requestCode, resultCode, data);
+    }
+    @AfterPermissionGranted(RC_IMAGE_PERMS)
+    public void onClickAddFile(View v) { this.chooseImageFromPhone(); }
+    // --------------------
+    // FILE MANAGEMENT
+    // --------------------
+
+    private void chooseImageFromPhone(){
+        if (!EasyPermissions.hasPermissions(this, PERMS)) {
+            EasyPermissions.requestPermissions(this, "Demande d'accés", RC_IMAGE_PERMS, PERMS);
+            return;
+        }
+        // 3 - Launch an "Selection Image" Activity
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, RC_CHOOSE_PHOTO);
+    }
+
+    // 4 - Handle activity response (after user has chosen or not a picture)
+    private void handleResponse(int requestCode, int resultCode, Intent data){
+        if (requestCode == RC_CHOOSE_PHOTO) {
+            if (resultCode == RESULT_OK) { //SUCCESS
+                this.uriImageSelected = data.getData();
+                ImageView imageViewProfile = findViewById(R.id.imageView2);
+                Glide.with(this) //SHOWING PREVIEW OF IMAGE
+                        .load(this.uriImageSelected)
+                        .into(imageViewProfile);
+            } else {
+                Toast.makeText(this, "Pas d'image choisis", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     protected void onResume() {
@@ -96,6 +149,7 @@ public class AccountCreation extends BaseActivity {
                     }
                     else{
                         createUsersFireBase();
+                        finish();
                         startActivity(new Intent(AccountCreation.this, Home.class));
                     }
                 }

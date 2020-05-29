@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ public class News extends AppCompatActivity implements NavigationView.OnNavigati
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private News instance;
+    private String city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +38,33 @@ public class News extends AppCompatActivity implements NavigationView.OnNavigati
 
         this.instance = this;
 
-        // Displays the news for "ville"
-        String ville = "Montpellier";
-        String url = "https://news.google.com/search?q=" + ville + "&hl=fr&gl=FR&ceid=FR%3Afr";
+        retrieveCityName();
+
+        getNews();
+    }
+
+    private void retrieveCityName(){
+        SharedPreferences settings = getSharedPreferences("preferences", MODE_PRIVATE);
+        city = settings.getString("City_Name","");
+    }
+
+    private void getNews(){
+        String url = "";
+        
+        if(city != ""){
+            url = "https://news.google.com/search?q=" + city + "&hl=fr&gl=FR&ceid=FR%3Afr";
+        }
+        else{
+            city = "Montpellier";
+            url = "https://news.google.com/search?q=" + city + "&hl=fr&gl=FR&ceid=FR%3Afr";
+        }
+
+        System.out.println("City name: " + city);
         WebView myWebView = (WebView) findViewById(R.id.webview);
         myWebView.loadUrl(url);
         myWebView.scrollTo(430,430);
-
     }
+
     @Override
     public void onBackPressed() {
         // 5 - Handle back click to close menu

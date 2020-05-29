@@ -51,6 +51,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="283dp"
             android:layout_marginTop="172dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
             android:text="Créer" />
 
         <Button
@@ -61,6 +63,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="152dp"
             android:layout_marginTop="172dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
             android:text="Mes groupes" />
 
         <Button
@@ -71,6 +75,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginEnd="293dp"
             android:layout_marginTop="173dp"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
             android:text="Groupes" />
 
     </RelativeLayout>

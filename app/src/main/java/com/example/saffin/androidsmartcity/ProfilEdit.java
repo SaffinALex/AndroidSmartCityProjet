@@ -47,9 +47,9 @@ public class ProfilEdit extends BaseActivity {
     public void onClickValidateChange(View v){
         EditText age = findViewById(R.id.editAge);
         String a = age.getText().toString();
-        EditText nom = findViewById(R.id.editFirstName);
+        EditText nom = findViewById(R.id.editSecondName);
         String firstName = nom.getText().toString();
-        EditText prenom = findViewById(R.id.editSecondName);
+        EditText prenom = findViewById(R.id.editFirstName);
         String secondName = prenom.getText().toString();
         EditText mail = findViewById(R.id.editMail);
         String m = mail.getText().toString();
@@ -61,6 +61,7 @@ public class ProfilEdit extends BaseActivity {
         UserHelper.updateCity(city,this.getCurrentUser().getUid());
         this.getCurrentUser().updateEmail(m);
         Intent intent = new Intent(this, Profil.class);
+        finish();
         startActivity(intent);
     }
 }

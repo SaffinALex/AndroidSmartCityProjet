@@ -20,7 +20,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(this.isCurrentUserLogged()) {
-                startActivity(new Intent(MainActivity.this, Home.class));
+            startHomeActivity();
         }
         else {
             setContentView(R.layout.activity_reception_screen);

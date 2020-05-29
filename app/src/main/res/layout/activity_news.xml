@@ -31,7 +31,7 @@
             android:background="?attr/colorPrimary"
             app:theme="@style/ToolBarStyle"
             android:textAlignment="center"
-            app:title="News"
+            app:title="@string/news"
             >
         </androidx.appcompat.widget.Toolbar>
 

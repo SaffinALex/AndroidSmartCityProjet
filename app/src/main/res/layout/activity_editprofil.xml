@@ -13,7 +13,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_gravity="center_horizontal"
-        android:text="Informations"
+        android:text="@string/info"
         android:textColor="@android:color/black"
         android:textSize="30sp"
         android:textStyle="bold" />
@@ -53,7 +53,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="34dp"
         android:onClick="onClickValidateButton"
-        android:text="VALIDER" />
+        android:text="@string/valider" />
 
 
     <TextView
@@ -63,7 +63,7 @@
         android:layout_alignStart="@+id/button4"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="19dp"
-        android:text="Nom" />
+        android:text="@string/nom" />
 
     <EditText
         android:id="@+id/editFirstName"
@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/imageView2"
         android:layout_alignTop="@+id/textView"
-        android:text="Prénom" />
+        android:text="@string/prenom" />
 
     <EditText
     android:id="@+id/editSecondName"
@@ -96,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/editFirstName"
         android:layout_toEndOf="@+id/imageView2"
-        android:text="TextView" />
+        android:text="@string/textview" />
 
     <EditText
         android:id="@+id/textAge"
@@ -113,7 +113,7 @@
         android:layout_alignStart="@+id/editFirstName"
         android:layout_below="@+id/editFirstName"
         android:layout_marginTop="31dp"
-        android:text="Adresse Email" />
+        android:text="@string/mail" />
 
     <EditText
         android:id="@+id/editMail"
@@ -122,6 +122,6 @@
         android:layout_alignStart="@+id/textView9"
         android:layout_below="@+id/textView9"
         android:layout_marginTop="11dp"
-        android:text="TextView" />
+        android:text="@string/textview" />
 
 </RelativeLayout>

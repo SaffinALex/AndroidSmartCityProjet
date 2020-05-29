@@ -86,6 +86,7 @@ public class GroupCreate extends BaseActivity {
     private void goAddGroup(String name){
         GroupHelper.createGroup(name, name).addOnFailureListener(this.onFailureListener());
         GroupHelper.createGroupUsers(name, this.getCurrentUser().getUid()).addOnFailureListener(this.onFailureListener());
+        finish();
         startActivity(new Intent(this, SocialGroup.class));
     }
     private void createGroupsFireBase(){

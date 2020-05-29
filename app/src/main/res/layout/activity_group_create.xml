@@ -68,7 +68,9 @@
             android:layout_marginStart="162dp"
             android:layout_marginTop="382dp"
             android:onClick="onClickCreateGroup"
-            android:text="Créer" />
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:text="@string/creer" />
 
         <!-- FrameLayout for our fragments -->
 

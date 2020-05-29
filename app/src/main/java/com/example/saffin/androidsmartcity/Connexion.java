@@ -140,6 +140,7 @@ public class Connexion extends BaseActivity {
                                 editor.putString("UID", getCurrentUser().getUid());
                                 editor.putInt("Age", Integer.parseInt(age));
                                 editor.commit();
+                                finish();
                                 startActivity(new Intent(Connexion.this, Home.class));
                             }
                         });

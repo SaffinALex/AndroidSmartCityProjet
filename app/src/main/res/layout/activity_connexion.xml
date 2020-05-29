@@ -42,7 +42,7 @@
             android:layout_marginBottom="20dp"
             android:id="@+id/email"
             android:inputType="textEmailAddress"
-            android:hint="Adresse Email"
+            android:hint="@string/mail"
             />
 
         <TextView
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/password"
             android:inputType="textPassword"
-            android:hint="Mot de passe"
+            android:hint="@string/motDePasse"
             />
 
     </LinearLayout>

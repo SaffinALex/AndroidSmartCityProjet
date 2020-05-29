@@ -51,12 +51,12 @@
 
         <EditText
             android:id="@+id/editMail"
-            android:layout_width="100dp"
+            android:layout_width="196dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="217dp"
-            android:layout_marginEnd="300dp"
+            android:layout_marginEnd="204dp"
             android:layout_marginTop="11dp"
             android:inputType="textEmailAddress"
             android:text="TextView" />
@@ -103,7 +103,9 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="68dp"
         android:layout_marginEnd="157dp"
-        android:onClick="onClickValidateChange"
+            android:background="@drawable/buttonshape"
+            android:shadowColor="#A8A8A8"
+            android:onClick="onClickValidateChange"
         android:text="@string/valider" />
 
         <EditText
@@ -145,12 +147,12 @@
 
         <EditText
             android:id="@+id/editCity"
-            android:layout_width="77dp"
+            android:layout_width="99dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="334dp"
-            android:layout_marginEnd="46dp"
+            android:layout_marginEnd="24dp"
             android:ems="10"
             android:inputType="textShortMessage"
             android:maxLength="10"
@@ -172,9 +174,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
             android:layout_marginBottom="332dp"
             android:layout_marginEnd="190dp"
-            android:layout_marginStart="-19dp"
+            android:layout_marginStart="138dp"
             android:layout_marginTop="0dp"
             android:inputType="textShortMessage"
             android:maxLength="10"

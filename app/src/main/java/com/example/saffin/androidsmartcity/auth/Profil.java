@@ -113,6 +113,7 @@ public class Profil extends BaseActivity {
         intent.putExtra("Nom",nom.getText().toString());
         intent.putExtra("Prenom",prenom.getText().toString());
         intent.putExtra("City",ville.getText().toString());
+        finish();
         startActivityForResult(intent, 1);
     }
 
@@ -122,6 +123,7 @@ public class Profil extends BaseActivity {
     }
     public void goMainActivity(){
         Intent intent = new Intent(this, MainActivity.class);
+        finish();
         startActivity(intent);
     }
     public void onClickDeleteButton(View v) {

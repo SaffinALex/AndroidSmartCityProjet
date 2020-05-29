@@ -53,6 +53,8 @@
         android:layout_marginBottom="44dp"
         android:layout_toEndOf="@+id/imageView2"
         android:onClick="onClickSignOutButton"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
         android:text="DECONNECTER" />
 
     <Button
@@ -62,6 +64,8 @@
         android:layout_alignBaseline="@+id/button2"
         android:layout_alignBottom="@+id/button2"
         android:layout_alignStart="@+id/imageView2"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
         android:onClick="onClickUpdateButton"
         android:text="MODIFIER" />
 
@@ -73,6 +77,8 @@
         android:layout_alignBottom="@+id/button3"
         android:layout_marginEnd="16dp"
         android:layout_toStartOf="@+id/button3"
+        android:background="@drawable/buttonshape"
+        android:shadowColor="#A8A8A8"
         android:onClick="onClickDeleteButton"
         android:text="SUPPRIMER" />
 
@@ -127,7 +133,8 @@
         android:layout_alignBaseline="@+id/editSecondName"
         android:layout_alignBottom="@+id/editSecondName"
         android:layout_alignStart="@+id/button2"
-        android:layout_marginStart="23dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginStart="40dp"
         android:text="TextView" />
 
     <TextView
@@ -141,7 +148,7 @@
 
     <TextView
         android:id="@+id/editMail"
-        android:layout_width="wrap_content"
+        android:layout_width="163dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/textView9"
         android:layout_below="@+id/textView9"
@@ -154,18 +161,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="229dp"
         android:layout_marginEnd="58dp"
+        android:layout_marginStart="270dp"
+        android:layout_marginTop="483dp"
         android:text="Ville" />
 
     <TextView
         android:id="@+id/editCity"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="23dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_marginBottom="198dp"
         android:layout_marginEnd="84dp"
+        android:layout_marginStart="269dp"
+        android:layout_marginTop="510dp"
         android:text="TextView" />
 
 </RelativeLayout>

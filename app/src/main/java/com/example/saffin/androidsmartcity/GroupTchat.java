@@ -86,6 +86,7 @@ public class GroupTchat extends BaseActivity {
     public void goMessage(){
         Intent i = new Intent(this, GroupTchat.class);
         i.putExtra("gid", this.gid);
+        finish();
         startActivity(i);
     }
     public void onClickSendMessage(View v) {
