@@ -27,9 +27,9 @@ public class AgendaViewHolder extends RecyclerView.ViewHolder {
     }
 
     //puis ajouter une fonction pour remplir la cellule en fonction d'un MyObject
-    public void bind(Event cardView){
-        hourView.setText(cardView.getHeures());
-        titleView.setText(cardView.getTitre());
-        detailsView.setText(cardView.getDetails());
+    public void bind(Event event){
+        hourView.setText(event.getHeures());
+        titleView.setText(event.getTitre());
+        detailsView.setText(event.getDetails());
     }
 }

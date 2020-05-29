@@ -14,13 +14,11 @@ import com.example.saffin.androidsmartcity.News;
 import com.example.saffin.androidsmartcity.R;
 import com.example.saffin.androidsmartcity.Settings;
 import com.example.saffin.androidsmartcity.Social;
-import com.example.saffin.androidsmartcity.agenda.Agenda;
+import com.example.saffin.androidsmartcity.agenda.Home;
 import com.example.saffin.androidsmartcity.commerces.CommerceActivity;
-import com.example.saffin.androidsmartcity.map.DownloadURL;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
@@ -29,20 +27,18 @@ import androidx.core.view.GravityCompat;
 
 import com.example.saffin.androidsmartcity.auth.Profil;
 
-import java.io.IOException;
-
-public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Home_temporary extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private String WEATHER_API_KEY;
 
-    private Home instance;
+    private Home_temporary instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home_temporary);
 
         this.instance = this;
 
@@ -104,7 +100,7 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
                 //startActivity(new Intent(this, Home.class));
                 break;
             case R.id.activity_main_drawer_agenda:
-                startActivity(new Intent(this, Agenda.class));
+                startActivity(new Intent(this, Home.class));
                 break;
             case R.id.activity_main_drawer_news :
                 startActivity(new Intent(this, News.class));

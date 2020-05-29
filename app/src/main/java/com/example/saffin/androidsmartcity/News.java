@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.WebView;
 
-import com.example.saffin.androidsmartcity.agenda.Agenda;
+import com.example.saffin.androidsmartcity.agenda.Home;
 import com.example.saffin.androidsmartcity.auth.Profil;
 import com.example.saffin.androidsmartcity.commerces.CommerceActivity;
+import com.example.saffin.androidsmartcity.home.Home_temporary;
+import com.example.saffin.androidsmartcity.map.MapsActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class News extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -82,16 +84,16 @@ public class News extends AppCompatActivity implements NavigationView.OnNavigati
 
         switch (id){
             case R.id.activity_main_drawer_home :
-                startActivity(new Intent(this, Home.class));
+                startActivity(new Intent(this, Home_temporary.class));
                 break;
             case R.id.activity_main_drawer_agenda:
-                startActivity(new Intent(this, Agenda.class));
+                startActivity(new Intent(this, Home.class));
                 break;
             case R.id.activity_main_drawer_news :
                 //startActivity(new Intent(this, News.class));
                 break;
             case R.id.activity_main_drawer_shops :
-                startActivity(new Intent(this, CommerceActivity.class));
+                startActivity(new Intent(this, MapsActivity.class));
                 break;
             case R.id.activity_main_drawer_social :
                 startActivity(new Intent(this, Social.class));

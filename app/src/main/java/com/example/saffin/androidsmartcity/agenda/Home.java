@@ -15,13 +15,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saffin.androidsmartcity.Advertisement;
-import com.example.saffin.androidsmartcity.home.Home;
+import com.example.saffin.androidsmartcity.home.Home_temporary;
 import com.example.saffin.androidsmartcity.News;
 import com.example.saffin.androidsmartcity.R;
 import com.example.saffin.androidsmartcity.Settings;
 import com.example.saffin.androidsmartcity.commerces.CommerceActivity;
 import com.example.saffin.androidsmartcity.Social;
 import com.example.saffin.androidsmartcity.auth.Profil;
+import com.example.saffin.androidsmartcity.map.MapsActivity;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -55,12 +56,12 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * Created by Th0ma on 28/05/2020
  */
-public class Agenda extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
 
-    private Agenda instance;
+    private Home instance;
 
     private CalendarView cv;
     private String calendarCurrentDay;
@@ -70,7 +71,6 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
 
     private RecyclerView agendaRecyclerView;
     private RecyclerView.Adapter agendaAdapter;
-    private RecyclerView.LayoutManager agendaLayoutManager;
     private ArrayList<Event> mEvents;
 
     private FirebaseFirestore mFirestore_Database;
@@ -81,7 +81,7 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_agenda);
+        setContentView(R.layout.activity_home);
 
         this.instance = this;
 
@@ -204,7 +204,7 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
 
     private void initRecyclerView(){
         // use a linear layout manager
-        agendaLayoutManager = new LinearLayoutManager(instance);
+        RecyclerView.LayoutManager agendaLayoutManager = new LinearLayoutManager(instance);
         agendaRecyclerView.setLayoutManager(agendaLayoutManager);
 
         // specify an adapter (see also next example)
@@ -454,7 +454,7 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
 
         switch (id){
             case R.id.activity_main_drawer_home :
-                startActivity(new Intent(this, Home.class));
+                startActivity(new Intent(this, Home_temporary.class));
                 break;
             case R.id.activity_main_drawer_agenda:
                 //startActivity(new Intent(this,Agenda.class));
@@ -463,7 +463,7 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
                 startActivity(new Intent(this, News.class));
                 break;
             case R.id.activity_main_drawer_shops :
-                startActivity(new Intent(this, CommerceActivity.class));
+                startActivity(new Intent(this, MapsActivity.class));
                 break;
             case R.id.activity_main_drawer_social :
                 startActivity(new Intent(this, Social.class));

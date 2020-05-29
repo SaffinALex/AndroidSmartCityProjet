@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.saffin.androidsmartcity.auth.BaseActivity;
+import com.example.saffin.androidsmartcity.home.Home_temporary;
 import com.example.saffin.androidsmartcity.models.UserHelper;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +36,7 @@ public class AccountCreation extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if(this.isCurrentUserLogged()) {
-            startActivity(new Intent(AccountCreation.this, Home.class));
+            startActivity(new Intent(AccountCreation.this, Home_temporary.class));
         }
         else{
             setContentView(R.layout.activity_account_creation);
@@ -52,7 +53,7 @@ public class AccountCreation extends BaseActivity {
         }
     }
     private void startHomeActivity(){
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, Home_temporary.class);
         startActivity(intent);
     }
 
@@ -96,7 +97,7 @@ public class AccountCreation extends BaseActivity {
                     }
                     else{
                         createUsersFireBase();
-                        startActivity(new Intent(AccountCreation.this, Home.class));
+                        startActivity(new Intent(AccountCreation.this, Home_temporary.class));
                     }
                 }
             });

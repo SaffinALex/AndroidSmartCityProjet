@@ -1,58 +1,65 @@
 package com.example.saffin.androidsmartcity.map;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.saffin.androidsmartcity.Advertisement;
+import com.example.saffin.androidsmartcity.News;
 import com.example.saffin.androidsmartcity.R;
+import com.example.saffin.androidsmartcity.Settings;
+import com.example.saffin.androidsmartcity.Social;
+import com.example.saffin.androidsmartcity.agenda.Home;
+import com.example.saffin.androidsmartcity.auth.Profil;
+import com.example.saffin.androidsmartcity.home.Home_temporary;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.CancellationToken;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.PhotoMetadata;
 import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.PlaceLikelihood;
 import com.google.android.libraries.places.api.net.FetchPlaceRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
+import com.google.android.libraries.places.api.net.FetchPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
-import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.GeoPoint;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener {
+        GoogleMap.OnMyLocationClickListener,NavigationView.OnNavigationItemSelectedListener {
 
+    private static class justForToolBar extends AppCompatActivity{
+
+    }
     private GoogleMap mMap;
     private MapsActivity instance;
     private PlacesClient placesClient;
@@ -60,6 +67,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String API_KEY;
     private EditText search_field;
     private FirebaseFirestore database;
+    private RecyclerView tempDetailRecyclerView;
+
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +79,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.instance = this;
         setContentView(R.layout.activity_maps);
 
+        this.configureDrawerLayout();
+
+        this.configureNavigationView();
+
         API_KEY = getString(R.string.maps_api_key); // Retrieves API KEY From Graddle Properties
 
         retrieveCoordinatesFromPreferences();
 
         initializePlacesAPI();
+
+        tempDetailRecyclerView = (RecyclerView) findViewById(R.id.places_details_recycler_view);
 
         // Obtain the SupportMapFragment and get notified when the com.example.saffin.androidsmartcity.map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -109,14 +127,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mMap.clear();
 
                     Object transferData[] = new Object[2];
-                    GetNearbyPlaces nearbyPlaces = new GetNearbyPlaces(instance);
+                    GetNearbyPlaces nearbyPlaces = new GetNearbyPlaces(instance,placesClient,tempDetailRecyclerView);
 
                     String research_keyword = search_field.getText().toString();
 
                     research_keyword = Normalizer.normalize(research_keyword, Normalizer.Form.NFD);
                     research_keyword = research_keyword.replaceAll("[^\\p{ASCII}]", "");
 
-                    String url = getURL(cityCoordinates,research_keyword);
+                    String url = getNearbyPlaceURL(cityCoordinates,research_keyword);
 
                     transferData[0] = mMap;
                     transferData[1] = url;
@@ -127,9 +145,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     hideKeyboard(instance);
                     search_field.clearFocus();
-
-                    //placesClient.fetchPlace();
-
                     handled = true;
                 }
                 return handled;
@@ -182,7 +197,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         cityCoordinates = new LatLng(Double.parseDouble(latitude),Double.parseDouble(longitude));
     }
 
-    private String getURL(LatLng coordinates, String input){
+    private String getNearbyPlaceURL(LatLng coordinates, String input){
         StringBuilder googleURL = new StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
 
         String location = "location=" + Double.toString(coordinates.latitude) + "," + Double.toString(coordinates.longitude);
@@ -195,6 +210,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         Log.d("MapsActivity","url: " + googleURL.toString());
 
+        return googleURL.toString();
+    }
+
+    private String getPlaceDetailsURL(String place_id, String fields){
+        StringBuilder googleURL = new StringBuilder("https://maps.googleapis.com/maps/api/place/details/json?place_id=");
+        googleURL.append(place_id);
+        googleURL.append("&fields=" + fields);
+        googleURL.append("&key=" + API_KEY);
         return googleURL.toString();
     }
 
@@ -218,5 +241,75 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMyLocationClick(@NonNull Location location) {
         System.err.println("Current location:\n" + location);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // 5 - Handle back click to close menu
+        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            this.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        // 4 - Handle Navigation Item Click
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.activity_main_drawer_home :
+                startActivity(new Intent(this, Home_temporary.class));
+                break;
+            case R.id.activity_main_drawer_agenda:
+                startActivity(new Intent(this, Home.class));
+                break;
+            case R.id.activity_main_drawer_news :
+                startActivity(new Intent(this, News.class));
+                break;
+            case R.id.activity_main_drawer_shops :
+                //startActivity(new Intent(this, Shop.class));
+                break;
+            case R.id.activity_main_drawer_social :
+                startActivity(new Intent(this, Social.class));
+                break;
+            case R.id.activity_main_drawer_ads :
+                startActivity(new Intent(this, Advertisement.class));
+                break;
+            case R.id.activity_main_drawer_profile:
+                Intent intent = new Intent(this, Profil.class);
+                startActivity(intent);
+                break;
+            case R.id.activity_main_drawer_settings:
+                startActivity(new Intent(this, Settings.class));
+                break;
+            default:
+                break;
+        }
+
+        this.drawerLayout.closeDrawer(GravityCompat.START);
+
+        return true;
+    }
+
+    // ---------------------
+    // CONFIGURATION
+    // ---------------------
+
+    // 2 - Configure Drawer Layout
+    private void configureDrawerLayout(){
+        this.drawerLayout = (DrawerLayout) findViewById(R.id.activity_main_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+    }
+
+    // 3 - Configure NavigationView
+    private void configureNavigationView(){
+        this.navigationView = (NavigationView) findViewById(R.id.activity_main_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 }

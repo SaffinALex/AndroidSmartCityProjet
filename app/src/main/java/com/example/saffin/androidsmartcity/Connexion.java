@@ -1,10 +1,8 @@
 package com.example.saffin.androidsmartcity;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -17,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.saffin.androidsmartcity.auth.BaseActivity;
+import com.example.saffin.androidsmartcity.home.Home_temporary;
 import com.example.saffin.androidsmartcity.models.User;
 import com.example.saffin.androidsmartcity.models.UserHelper;
 import com.google.android.gms.maps.model.LatLng;
@@ -31,7 +30,6 @@ import java.util.List;
 import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 
 public class Connexion extends BaseActivity {
     FirebaseAuth firebaseAuth;
@@ -41,7 +39,7 @@ public class Connexion extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (this.isCurrentUserLogged()) {
-            startActivity(new Intent(Connexion.this, Home.class));
+            startActivity(new Intent(Connexion.this, Home_temporary.class));
         } else {
             setContentView(R.layout.activity_connexion);
         }
@@ -60,7 +58,7 @@ public class Connexion extends BaseActivity {
     }
 
     private void startHomeActivity() {
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, Home_temporary.class);
         startActivity(intent);
     }
 
@@ -78,9 +76,10 @@ public class Connexion extends BaseActivity {
         LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Location location;
-        final double longitude;
-        final double latitude;
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        final double longitude = 0.0;
+        final double latitude = 0.0;
+
+    /*    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_NETWORK_STATE) != PackageManager.PERMISSION_GRANTED) {
             location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -90,7 +89,8 @@ public class Connexion extends BaseActivity {
         else{
             longitude = 0.0;
             latitude = 0.0;
-        }
+        }*/
+
         Log.d("heycc", "coucou");
         if (userEmail.isEmpty()) {
             mail.setError("Remplir Mail");
@@ -140,7 +140,7 @@ public class Connexion extends BaseActivity {
                                 editor.putString("UID", getCurrentUser().getUid());
                                 editor.putInt("Age", Integer.parseInt(age));
                                 editor.commit();
-                                startActivity(new Intent(Connexion.this, Home.class));
+                                startActivity(new Intent(Connexion.this, Home_temporary.class));
                             }
                         });
                     }

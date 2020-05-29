@@ -13,9 +13,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.saffin.androidsmartcity.agenda.Agenda;
+import com.example.saffin.androidsmartcity.agenda.Home;
 import com.example.saffin.androidsmartcity.auth.Profil;
 import com.example.saffin.androidsmartcity.commerces.CommerceActivity;
+import com.example.saffin.androidsmartcity.home.Home_temporary;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -166,10 +167,10 @@ public class Advertisement extends AppCompatActivity implements NavigationView.O
 
         switch (id){
             case R.id.activity_main_drawer_home :
-                startActivity(new Intent(this, Home.class));
+                startActivity(new Intent(this, Home_temporary.class));
                 break;
             case R.id.activity_main_drawer_agenda:
-                startActivity(new Intent(this, Agenda.class));
+                startActivity(new Intent(this, Home.class));
                 break;
             case R.id.activity_main_drawer_news :
                 startActivity(new Intent(this, News.class));

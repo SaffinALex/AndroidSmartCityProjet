@@ -10,34 +10,34 @@ import com.example.saffin.androidsmartcity.agenda.Event;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * Created by Th0ma on 29/05/2020
  */
-public class MapAdapter {
+public class PlaceDetailsAdapter extends RecyclerView.Adapter<PlaceDetailsViewHolder>{
     private List<PlaceDetails> mDataset;
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public MapAdapter(List<PlaceDetails> myDataset) {
+    public PlaceDetailsAdapter(List<PlaceDetails> myDataset) {
         mDataset = myDataset;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public AgendaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PlaceDetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.agenda_cardview, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.place_details_cardview, parent, false);
 
-        return new AgendaViewHolder(v);
+        return new PlaceDetailsViewHolder(v);
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(AgendaViewHolder holder, int position) {
-        // - get element from your dataset at this position
-        // - replace the contents of the view with that element
-        Event event = mDataset.get(position);
-        holder.bind(event);
-
+    public void onBindViewHolder(@NonNull PlaceDetailsViewHolder holder, int position) {
+        PlaceDetails placeDetails = mDataset.get(position);
+        holder.bind(placeDetails);
     }
 
     // Return the size of your dataset (invoked by the layout manager)

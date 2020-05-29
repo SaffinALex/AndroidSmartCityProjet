@@ -1,14 +1,12 @@
 package com.example.saffin.androidsmartcity;
 
-        import android.app.Activity;
         import android.content.Intent;
-        import androidx.appcompat.app.AppCompatActivity;
         import android.os.Bundle;
-        import androidx.appcompat.app.ActionBarDrawerToggle;
 
         import android.view.View;
 
         import com.example.saffin.androidsmartcity.auth.BaseActivity;
+        import com.example.saffin.androidsmartcity.home.Home_temporary;
         import com.firebase.ui.auth.AuthUI;
 
         import java.io.IOException;
@@ -71,7 +69,7 @@ public class MainActivity extends BaseActivity {
         }
     }
     private void startHomeActivity(){
-        Intent intent = new Intent(this, Home.class);
+        Intent intent = new Intent(this, Home_temporary.class);
         startActivity(intent);
     }
     public void goCreateAccount(View v) throws IOException {

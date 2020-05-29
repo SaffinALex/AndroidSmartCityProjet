@@ -83,6 +83,19 @@ public class DataParser {
         return places_list;
     }
 
+    public  HashMap<String, String> getPlaceDetail(JSONObject googlePlaceJSON){
+        HashMap<String,String> placeDetails = new HashMap<>();
+
+        String imageURL = "";
+        String adresse = "";
+        String horaires = "";
+        String siteWeb = "";
+
+
+
+        return null;
+    }
+
     public List<HashMap<String,String>> parse(String JSONData){
         JSONArray jsonArray = null;
         JSONObject jsonObject;

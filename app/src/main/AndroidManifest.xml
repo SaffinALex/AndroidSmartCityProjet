@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/launcher_icon"
         android:label="@string/app_name"
@@ -46,11 +47,11 @@
         <activity android:name=".AccountCreation" />
         <activity android:name=".Advertisement" />
         <activity android:name=".Connexion" />
-        <activity android:name=".Home" />
+        <activity android:name=".home.Home_temporary" />
         <activity android:name=".ReceptionScreen" />
         <activity android:name=".Social" />
         <activity android:name=".SocialGroup" />
-        <activity android:name=".agenda.Agenda"/>
+        <activity android:name=".agenda.Home"/>
         <activity
             android:name=".auth.BaseActivity"
             android:label="@string/title_activity_base"

@@ -117,4 +117,10 @@
     <string name="configuration">Configuration</string>
     <string name="profil">Profil</string>
     <string name="agenda">Agenda</string>
+    <string name="adresse">Adresse</string>
+    <string name="horaires">Horaires</string>
+    <string name="notation">Notation</string>
+    <string name="telephone">Téléphone</string>
+    <string name="site_web">Site Web</string>
+    <string name="commerces">Commerces</string>
 </resources>

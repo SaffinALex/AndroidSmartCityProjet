@@ -13,12 +13,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.saffin.androidsmartcity.Advertisement;
-import com.example.saffin.androidsmartcity.Home;
+import com.example.saffin.androidsmartcity.home.Home_temporary;
 import com.example.saffin.androidsmartcity.News;
 import com.example.saffin.androidsmartcity.R;
 import com.example.saffin.androidsmartcity.Settings;
 import com.example.saffin.androidsmartcity.Social;
-import com.example.saffin.androidsmartcity.agenda.Agenda;
+import com.example.saffin.androidsmartcity.agenda.Home;
 import com.example.saffin.androidsmartcity.auth.Profil;
 import com.example.saffin.androidsmartcity.map.MapsActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -76,10 +76,10 @@ public class CommerceActivity extends AppCompatActivity implements NavigationVie
 
         switch (id){
             case R.id.activity_main_drawer_home :
-                startActivity(new Intent(this, Home.class));
+                startActivity(new Intent(this, Home_temporary.class));
                 break;
             case R.id.activity_main_drawer_agenda:
-                startActivity(new Intent(this, Agenda.class));
+                startActivity(new Intent(this, Home.class));
                 break;
             case R.id.activity_main_drawer_news :
                 startActivity(new Intent(this, News.class));
