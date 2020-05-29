@@ -1,3 +1,5 @@
+package com.example.saffin.androidsmartcity.agenda;
+
 import android.app.Dialog;
 import android.content.Context;
 

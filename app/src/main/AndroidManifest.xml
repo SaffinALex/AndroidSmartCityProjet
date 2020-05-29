@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/launcher_icon_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Shop"></activity>
+        <activity android:name=".commerces.CommerceActivity"></activity>
         <activity android:name=".Settings" />
         <activity android:name=".News" />
         <activity android:name=".GroupTchat"></activity>
@@ -50,6 +50,7 @@
         <activity android:name=".ReceptionScreen" />
         <activity android:name=".Social" />
         <activity android:name=".SocialGroup" />
+        <activity android:name=".agenda.Agenda"/>
         <activity
             android:name=".auth.BaseActivity"
             android:label="@string/title_activity_base"

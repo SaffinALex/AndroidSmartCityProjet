@@ -1,4 +1,4 @@
-package com.example.saffin.androidsmartcity;
+package com.example.saffin.androidsmartcity.commerces;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,16 +12,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.saffin.androidsmartcity.Advertisement;
+import com.example.saffin.androidsmartcity.Home;
+import com.example.saffin.androidsmartcity.News;
+import com.example.saffin.androidsmartcity.R;
+import com.example.saffin.androidsmartcity.Settings;
+import com.example.saffin.androidsmartcity.Social;
+import com.example.saffin.androidsmartcity.agenda.Agenda;
 import com.example.saffin.androidsmartcity.auth.Profil;
 import com.example.saffin.androidsmartcity.map.MapsActivity;
 import com.google.android.material.navigation.NavigationView;
 
-public class Shop extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class CommerceActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
-    private Shop instance;
+    private CommerceActivity instance;
 
     private Button mapBtn;
     private Button annuairBtn;
@@ -70,6 +77,9 @@ public class Shop extends AppCompatActivity implements NavigationView.OnNavigati
         switch (id){
             case R.id.activity_main_drawer_home :
                 startActivity(new Intent(this, Home.class));
+                break;
+            case R.id.activity_main_drawer_agenda:
+                startActivity(new Intent(this, Agenda.class));
                 break;
             case R.id.activity_main_drawer_news :
                 startActivity(new Intent(this, News.class));

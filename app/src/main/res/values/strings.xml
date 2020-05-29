@@ -104,4 +104,17 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_maps">Map</string>
+    <string name="titre">Titre: </string>
+    <string name="date">Date: </string>
+    <string name="informations_supplementaires">Informations Supplémentaires:</string>
+    <string name="annuler">Annuler</string>
+    <string name="ajouterEvenement">Ajouter un Evenement</string>
+    <string name="le">Le</string>
+    <string name="a_avec_accent">à:</string>
+    <string name="min">min</string>
+    <string name="h">h</string>
+    <string name="publicites">Publicités</string>
+    <string name="configuration">Configuration</string>
+    <string name="profil">Profil</string>
+    <string name="agenda">Agenda</string>
 </resources>

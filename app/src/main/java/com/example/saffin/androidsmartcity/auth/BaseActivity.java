@@ -9,8 +9,9 @@ import com.example.saffin.androidsmartcity.Advertisement;
 import com.example.saffin.androidsmartcity.News;
 import com.example.saffin.androidsmartcity.R;
 import com.example.saffin.androidsmartcity.Settings;
-import com.example.saffin.androidsmartcity.Shop;
+import com.example.saffin.androidsmartcity.commerces.CommerceActivity;
 import com.example.saffin.androidsmartcity.Social;
+import com.example.saffin.androidsmartcity.agenda.Agenda;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,11 +68,14 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
             case R.id.activity_main_drawer_home :
                 //startActivity(new Intent(this, Home.class));
                 break;
+            case R.id.activity_main_drawer_agenda:
+                startActivity(new Intent(this, Agenda.class));
+                break;
             case R.id.activity_main_drawer_news :
                 startActivity(new Intent(this, News.class));
                 break;
             case R.id.activity_main_drawer_shops :
-                startActivity(new Intent(this, Shop.class));
+                startActivity(new Intent(this, CommerceActivity.class));
                 break;
             case R.id.activity_main_drawer_social :
                 startActivity(new Intent(this, Social.class));

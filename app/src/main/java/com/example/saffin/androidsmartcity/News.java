@@ -1,6 +1,5 @@
 package com.example.saffin.androidsmartcity;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,13 +8,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.autofill.AutofillValue;
 import android.webkit.WebView;
 
+import com.example.saffin.androidsmartcity.agenda.Agenda;
 import com.example.saffin.androidsmartcity.auth.Profil;
+import com.example.saffin.androidsmartcity.commerces.CommerceActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class News extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
@@ -50,7 +49,7 @@ public class News extends AppCompatActivity implements NavigationView.OnNavigati
 
     private void getNews(){
         String url = "";
-        
+
         if(city != ""){
             url = "https://news.google.com/search?q=" + city + "&hl=fr&gl=FR&ceid=FR%3Afr";
         }
@@ -85,11 +84,14 @@ public class News extends AppCompatActivity implements NavigationView.OnNavigati
             case R.id.activity_main_drawer_home :
                 startActivity(new Intent(this, Home.class));
                 break;
+            case R.id.activity_main_drawer_agenda:
+                startActivity(new Intent(this, Agenda.class));
+                break;
             case R.id.activity_main_drawer_news :
                 //startActivity(new Intent(this, News.class));
                 break;
             case R.id.activity_main_drawer_shops :
-                startActivity(new Intent(this, Shop.class));
+                startActivity(new Intent(this, CommerceActivity.class));
                 break;
             case R.id.activity_main_drawer_social :
                 startActivity(new Intent(this, Social.class));

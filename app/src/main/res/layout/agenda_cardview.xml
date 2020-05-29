@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/quantum_white_100"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="2dp"
+    android:layout_margin="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@color/places_text_white_alpha_26">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="bold"
+                android:textSize="25sp"
+                android:textColor="@color/quantum_black_100"
+                android:text="@string/h"
+                android:gravity="center"
+                android:id="@+id/agenda_cardview_heure"
+
+                android:background="@color/quantum_grey300">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColor="@color/quantum_black_100"
+                android:text="@string/titre"
+                android:background="@drawable/back"
+                android:gravity="center_horizontal"
+                android:id="@+id/agenda_cardview_titre">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:text="@string/message"
+                android:gravity="center_horizontal"
+                android:id="@+id/agenda_cardview_details">
+
+            </TextView>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

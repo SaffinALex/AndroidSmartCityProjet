@@ -1,0 +1,42 @@
+
+/*
+                        int minutes = mDateFormatManipulator.stringHourToIntTotalMinutes(data[0]);
+
+                        System.out.println("minutes totales: " + minutes);
+
+                        ArrayList<Integer> totalTimeCardViews = new ArrayList<>();
+
+                        for(Event card : mEvents){
+                            int cardMinutes =  mDateFormatManipulator.stringHourToIntTotalMinutes(card.getHeures());
+                            totalTimeCardViews.add(cardMinutes);
+                        }
+
+                        for(int i = 0; i < totalTimeCardViews.size();i++){
+                            for(int j = i + 1; j < totalTimeCardViews.size();j++){
+                                if(totalTimeCardViews.get(j) < totalTimeCardViews.get(i)){
+                                    int temp = totalTimeCardViews.get(j);
+                                    totalTimeCardViews.set(j,totalTimeCardViews.get(i));
+                                    totalTimeCardViews.set(i,temp);
+                                }
+                            }
+                        }
+
+                        for(int i = 0; i < totalTimeCardViews.size();i++){
+                            for(int j = 0; j < mEvents.size(); j++){
+
+                                Event card = mEvents.get(j);
+
+                                int cardMinutes =  mDateFormatManipulator.stringHourToIntTotalMinutes(card.getHeures());
+
+                                if(cardMinutes == totalTimeCardViews.get(i)){
+                                    Event temp = mEvents.get(i);
+                                    mEvents.set(i,card);
+                                    mEvents.set(j,temp);
+                                }
+                            }
+                        }
+
+                        for(int i = 0; i < totalTimeCardViews.size();i++){
+                            System.out.println("total time: " +totalTimeCardViews.get(i));
+                        }
+*/
