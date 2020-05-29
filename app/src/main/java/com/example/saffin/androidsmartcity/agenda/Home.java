@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.saffin.androidsmartcity.Advertisement;
-import com.example.saffin.androidsmartcity.Home;
+import com.example.saffin.androidsmartcity.home.Home;
 import com.example.saffin.androidsmartcity.News;
 import com.example.saffin.androidsmartcity.R;
 import com.example.saffin.androidsmartcity.Settings;

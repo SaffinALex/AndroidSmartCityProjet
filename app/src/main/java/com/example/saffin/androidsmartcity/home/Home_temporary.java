@@ -1,28 +1,41 @@
-package com.example.saffin.androidsmartcity;
+package com.example.saffin.androidsmartcity.home;
 
 import android.content.Intent;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.saffin.androidsmartcity.Advertisement;
+import com.example.saffin.androidsmartcity.News;
+import com.example.saffin.androidsmartcity.R;
+import com.example.saffin.androidsmartcity.Settings;
+import com.example.saffin.androidsmartcity.Social;
 import com.example.saffin.androidsmartcity.agenda.Agenda;
 import com.example.saffin.androidsmartcity.commerces.CommerceActivity;
+import com.example.saffin.androidsmartcity.map.DownloadURL;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.navigation.NavigationView;
 
+import android.text.TextUtils;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 
 import com.example.saffin.androidsmartcity.auth.Profil;
 
+import java.io.IOException;
+
 public class Home extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private String WEATHER_API_KEY;
 
     private Home instance;
 
@@ -38,10 +51,37 @@ public class Home extends AppCompatActivity implements NavigationView.OnNavigati
         this.configureDrawerLayout();
 
         this.configureNavigationView();
+
+        WEATHER_API_KEY = getString(R.string.weather_api_key);
+
+        //launchCurrentWeather();
+
+        setPreferences();
     }
 
+    private void setPreferences(){
+        SharedPreferences settings = getSharedPreferences("preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+        String firstName = "Jean_Eude";
+        String age = "27";
+        String secondName = "Dubarrzeau";
+        editor.putString("First_Name", firstName);
+        editor.putString("Last_Name", secondName);
+        editor.putString("Pseudo", "noUsername");
+        editor.putString("Password", "HiddenPsw");
+        editor.putString("E_Mail", "e@mail.com");
+        editor.putString("City_Name", "Montpellier");
+        editor.putString("City_Coordinates", new LatLng(43.61092,3.87723).toString());
+        editor.putString("UID", "crlqKmbeD6dJMnFbzwXiBNqvAcP2");
+        editor.putInt("Age", Integer.parseInt(age));
+        editor.commit();
+    }
 
-
+    private void launchCurrentWeather(){
+        String url = "http://api.weatherstack.com/current?access_key=" + WEATHER_API_KEY + "&query=New York";
+        WebView myWebView = (WebView) findViewById(R.id.webview_current_weather);
+        myWebView.loadUrl(url);
+    }
 
     @Override
     public void onBackPressed() {
